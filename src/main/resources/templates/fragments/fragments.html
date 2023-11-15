@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head th:fragment="head">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/nav.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <script src="https://use.fontawesome.com/7dd91a0fb4.js"></script>
+    <link rel="stylesheet" href="./themify-icons.css" />
+    <link
+            href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+            rel="stylesheet"
+    />
+    <title>Document</title>
+</head>
+<body>
+    <div th:fragment="header" id="header">
+    <nav class="navigationHeader">
+        <div class="container nav">
+            <div class="logo" style="padding-right: 30px;">
+                <a href="index.html">
+                    <img src="logo.png" alt="Logo">
+                </a>
+
+            </div>
+            <ul class="navigation">
+                <li class="list-nav">
+                    <a href="index.html" class="link_nav">Trang chủ</a>
+                </li>
+                <li class="list-nav">
+                    <a href="#" class="link_nav">
+                        Quần áo
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </a>
+                    <ul>
+                        <li><a href="#">Quần áo CLB</a></li>
+                        <li><a href="#">Quần áo Tuyển Quốc Gia</a></li>
+                    </ul>
+                </li>
+                <li class="list-nav">
+                    <a href="#" class="link_nav">Giày
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </a>
+
+                    <ul>
+                        <li><a href="#">Dưới 300 </a></li>
+                        <li><a href="#">Từ 300</a></li>
+                        <li><a href="#">Trên 700 </a></li>
+                    </ul>
+                </li>
+                <li class="list-nav">
+                    <a href="#" class="link_nav">Phụ kiện
+                        <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    </a>
+                    <ul>
+                        <li><a href="#">Găng tay</a></li>
+                        <li><a href="#">Quấn bảo vệ chân</a></li>
+                    </ul>
+                </li>
+                <li class="list-nav">
+                    <a href="#" class="link_nav">Liên hệ</a>
+                </li>
+                <li class="">
+                <li class="or_ic or1">
+                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                </li>
+
+                <li class="or_ic ">
+                    <a href="#"><i class="fa fa-user-o" aria-hidden="true"></i></a>
+                </li>
+                <li class="or_ic or2">
+                    <img src="magnifying-glass.png" alt="">
+                </li>
+                <input style="margin:0;">
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
