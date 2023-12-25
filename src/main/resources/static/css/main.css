@@ -1,0 +1,37 @@
+.book_card{
+    overflow: hidden;
+    transition: all .5s ease-in-out;
+
+}
+
+.book_card:hover .book_card__hover{
+    opacity: 1;
+    visibility: visible;
+    display: flex;
+}
+.book_card__hover{
+    transition: all .5s ease-in-out;
+    opacity: 0;
+    visibility: invisible;
+}
+
+.book_cart__1{
+    transform: translateX(-500px);
+    transition: all .5s ease-in-out;
+}
+
+.book_cart__2{
+    transform: translateX(500px);
+    transition: all .5s ease-in-out;
+}
+
+.book_card:hover .book_cart__1,
+.book_card:hover .book_cart__2{
+    transform: translateX(0);
+    transition: all .5s ease-in-out;
+
+}
+
+.book_cart:not(:first-child){
+    border-top: 1px solid #9f9f9f;
+}
