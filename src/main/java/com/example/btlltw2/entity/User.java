@@ -26,4 +26,7 @@ public class User {
 
 	@OneToMany(mappedBy = "user")
 	private List<Bill> billList;
+
+	@OneToOne
+	private CartEntity cart;
 }

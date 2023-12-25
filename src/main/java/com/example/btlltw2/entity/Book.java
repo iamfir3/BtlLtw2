@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -35,5 +35,11 @@ public class Book {
 
 	@OneToMany
 	private List<ItemBill> itemBill;
+
+	@ManyToOne
+	private CartEntity cart;
+
+	@OneToMany
+	private List<CartBook> cartBooks;
 
 }

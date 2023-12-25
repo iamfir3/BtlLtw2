@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head th:replace="~{common ::head}">
+</head>
+<body class=" flex justify-center">
+<div class="max-w-[1440px] w-full">
+    <header th:replace="~{common ::header}"></header>
+
+    <div class="w-full h-[316px] relative flex items-center justify-center">
+        <img src="/assets/list.jpeg" class="w-full h-full object-cover absolute top-0 left-0" alt="" style="filter: blur(2px)">
+
+        <div class="relative z-[10]">
+            <p class="text-[48px] font-[500]">Shop</p>
+            <div class="flex gap-[6px]">
+                <span class="font-[500]">Home</span>
+                <span class="font-[500]"> > </span>
+                <span class="font-[300]">Shop</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full h-[100px] bg-[#F9F1E7] py-[38px] pl-[100px] flex gap-[24px] items-center mb-[63px]">
+        <div class="flex items-center gap-[10px]">
+            <p class="text-[20px]">Sort by</p>
+            <select name="sort" id="sort" class="py-[13px] pl-[30px] pr-[86px]">
+                <option value="nameasc">Name ASC</option>
+                <option value="namedesc">Name DESC</option>
+                <option value="priceasc">Price ASC</option>
+                <option value="pricedesc">Price DESC</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="flex flex-wrap gap-[32px] justify-center">
+        <div th:each="book :${books}" th:limit="10">
+            <div th:replace="common ::bookCard(${book})"></div>
+        </div>
+    </div>
+
+    <img src="/assets/listft.png" class="mt-[85px]" alt="">
+
+    <div class="mt-[160px]">
+        <div th:replace="common ::footer"></div>
+    </div>
+
+</div>
+
+<script>
+    const cardHandler = (bookId) => {
+        const redirectUrl = '/detail?id=' + bookId;
+        window.location.href = redirectUrl;
+    }
+</script>
+<script src="/js/common.js"></script>
+
+</body>
+</html>

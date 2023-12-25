@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head th:replace="~{common ::head}">
+</head>
+<body class=" flex justify-center">
+<div class="max-w-[1440px] w-full">
+    <header th:replace="~{common ::header}"></header>
+
+    <div class="w-full h-[316px] relative flex items-center justify-center">
+        <img src="/assets/list.jpeg" class="w-full h-full object-cover absolute top-0 left-0" alt=""
+             style="filter: blur(2px)">
+
+        <div class="relative z-[10]">
+            <p class="text-[48px] font-[500]">Cart</p>
+            <div class="flex gap-[6px]">
+                <span class="font-[500]">Home</span>
+                <span class="font-[500]"> > </span>
+                <span class="font-[300]">Cart</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-[72px] py-[38px] px-[100px] flex gap-[30px] items-start mb-[63px]">
+        <div class="w-[817px]">
+            <div class="flex gap-[30px] py-[15px] text-[16px] text-black mb-[62px] bg-[#F9F1E7] font-[500]">
+                <p class="w-[27%] text-center">Book</p>
+                <p class="w-[20%] text-center">Price</p>
+                <p class="w-[12%] text-center">Amount</p>
+                <p class="w-[10%] text-center">Subtotal</p>
+            </div>
+
+            <div class="h-[500px] overflow-y-auto">
+                <div class="flex flex-col gap-[20px]">
+                    <div th:each="book :${cartBooks}">
+                        <div th:replace="common ::bookCart(${book})"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="h-[390px] w-[393px] bg-[#F9F1E7] flex flex-col pt-[15px] px-[75px]">
+            <p class="text-center text-[32px] font-[600]">Cart Totals</p>
+            <div class="flex gap-[62px] items-center justify-between mt-[61px]">
+                <p class="font-[500]">Subtotal</p>
+                <p th:text="'$'+${subprice}" class="font-[400] text-[#9f9f9f]"></p>
+            </div>
+            <div class="flex gap-[62px] items-center justify-between mt-[31px]">
+                <p class="font-[500]">Total</p>
+                <p th:text="'$'+${subprice}" class="text-[#B88E2F] text-[20px] font-[500]"></p>
+            </div>
+
+            <div class="px-[59px] py-[14px] text-[19px] text-black font-[400] rounded-[15px] border-[1px] border-[#000] w-[222px] mt-[42px]">
+                <p>Check Out</p>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+
+
+    <img src="/assets/listft.png" class="mt-[85px]" alt="">
+
+    <div class="mt-[160px]">
+        <div th:replace="common ::footer"></div>
+    </div>
+
+</div>
+
+<script>
+    const cardHandler = (bookId) => {
+        const redirectUrl = '/detail?id=' + bookId;
+        window.location.href = redirectUrl;
+    }
+</script>
+
+<script src="/js/common.js"></script>
+
+</body>
+</html>

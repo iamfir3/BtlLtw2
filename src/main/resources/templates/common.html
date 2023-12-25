@@ -1,78 +1,156 @@
 <head th:fragment="head">
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/nav.css" />
-    <link rel="stylesheet" href="/css/base.css" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--    <link rel="stylesheet" href="/css/nav.css" />-->
+    <!--    <link rel="stylesheet" href="/css/base.css" />-->
     <script src="https://use.fontawesome.com/7dd91a0fb4.js"></script>
-    <link rel="stylesheet" href="./themify-icons.css" />
+    <link rel="stylesheet" href="./themify-icons.css"/>
     <link
             href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
             rel="stylesheet"
     />
     <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/slider.css"/>
+    <link rel="stylesheet" href="/css/main.css">
+
 </head>
 
 <div th:fragment="header" id="header">
-    <nav class="navigationHeader">
-        <div class="container nav">
-            <div class="logo" style="padding-right: 30px;">
-                <a href="index.html">
-                    <img src="/assets/logo.png" alt="Logo">
-                </a>
+    <div class="bg-white py-[30px] pl-[54px] pr-[65px] w-full flex justify-between items-center">
+        <img src="/assets/logo.png" alt="" class="w-[185px] h-[41px]" onclick="handleImgClick()"/>
+        <div class="flex gap-[45px] text-[24px] items-center">
+            <div id="userHeaderIcon" class="flex items-center">
 
             </div>
-            <ul class="navigation">
-                <li class="list-nav">
-                    <a href="index.html" class="link_nav">Trang chủ</a>
-                </li>
-                <li class="list-nav">
-                    <a href="#" class="link_nav">
-                        Quần áo
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    </a>
-                    <ul>
-                        <li><a href="#">Quần áo CLB</a></li>
-                        <li><a href="#">Quần áo Tuyển Quốc Gia</a></li>
-                    </ul>
-                </li>
-                <li class="list-nav">
-                    <a href="#" class="link_nav">Giày
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    </a>
-
-                    <ul>
-                        <li><a href="#">Dưới 300 </a></li>
-                        <li><a href="#">Từ 300</a></li>
-                        <li><a href="#">Trên 700 </a></li>
-                    </ul>
-                </li>
-                <li class="list-nav">
-                    <a href="#" class="link_nav">Phụ kiện
-                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                    </a>
-                    <ul>
-                        <li><a href="#">Găng tay</a></li>
-                        <li><a href="#">Quấn bảo vệ chân</a></li>
-                    </ul>
-                </li>
-                <li class="list-nav">
-                    <a href="#" class="link_nav">Liên hệ</a>
-                </li>
-                <li class="">
-                <li class="or_ic or1">
-                    <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                </li>
-
-                <li class="or_ic ">
-                    <a href="#"><i class="fa fa-user-o" aria-hidden="true"></i></a>
-                </li>
-                <li class="or_ic or2">
-                    <img src="magnifying-glass.png" alt="">
-                </li>
-                <input style="margin:0;">
-                </li>
-            </ul>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-solid fa-cart-shopping" onclick="handleCartClick()"></i>
         </div>
-    </nav>
+    </div>
 </div>
+
+<div th:fragment="bookCard(book)" class="flex flex-col items-center w-[285px] relative book_card " >
+
+    <img src="" th:src="${book.image}" class="w-full h-[301px] object-cover" alt="" />
+    <div class="bg-[#F4F5F7] w-full p-[16px] flex flex-col gap-[8px]">
+        <p class="text-[24px] font-[600]" th:text="${book.title}"></p>
+        <p class="text-[16px] font-[500] text-[#898989] truncate text-ellipsis" th:text="${book.des}">
+
+        </p>
+        <p class="text-[20px] font-[600]" th:text=" '$'+${book.price}"></p>
+    </div>
+
+    <div
+            class="absolute w-full h-full bg-[rgba(58,58,58,.72)] book_card__hover flex-col items-center justify-center"
+    >
+        <div
+                class="px-[59px] py-[12px] bg-white text-[#B88E2F] book_cart__1"
+                th:attr="onclick=|cardHandler('${book.id}')|"
+        >
+            <p class="inline-block text-[16px] font-[600] cursor-pointer">View detail</p>
+        </div>
+        <div class="flex gap-[20px] text-white mt-[24px]  book_cart__2">
+            <div class="flex gap-[6px] items-center text-[16px] font-[600] transition-all ease-in-out cursor-pointer">
+                <i class="fa-solid fa-share-nodes"></i>
+                <p>Share</p>
+            </div>
+            <div class="flex gap-[6px] items-center text-[16px] font-[600] cursor-pointer">
+                <i class="fa-regular fa-heart"></i>
+                <p>Heart</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div
+        th:fragment="bookCart(book)"
+        class="flex items-center w-[729px] relative book_cart py-[14px]"
+>
+    <img
+            th:src="${book.image}"
+            class="w-[15%] h-[90px] rounded-[10px] object-contain mr-[34px]"
+            alt=""
+    />
+    <div class="flex items-center w-full">
+        <p class="text-[16px] w-[25%] font-[400]" th:text="${book.title}"></p>
+
+        <p class="text-[16px] w-[27%] font-[400]" th:text=" '$'+${book.price}">
+
+        </p>
+
+        <div
+                class="flex items-center justify-center text-[16px] h-[32px] w-[32px] text-center border-[1px] border-[#9f9f9f] rounded-[10px]"
+        >
+            <p th:text="${book.amount}"></p>
+        </div>
+
+        <p class="text-[16px] w-[30%] text-center" th:text="${book.amount * book.price}"></p>
+
+        <div class="text-[#B88E2F] text-[20px] w-[10%]" th:attr="onclick=|deleteCartItem('${book.id}')|">
+            <i class="fa-solid fa-trash"></i>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="footer" >
+
+    <div class="flex justify-between items-center">
+        <div>
+            <img src="/assets/Logo2.png" alt="" />
+            <div class="flex gap-[40px] text-[18px] mt-[40px]">
+                <p>About</p>
+                <p>Features</p>
+                <p>Pricing</p>
+                <p>Gallery</p>
+                <p>Team</p>
+            </div>
+        </div>
+        <div class="text-[16px]">
+            <p>Subscribe to stay tuned for new product and latest updates.</p>
+            <p>Let’s do it!</p>
+            <div
+                    class="bg-[#FFCE1A] rounded-[8px] flex py-[1px] px-[1px] mt-[38px] w-[454px] justify-between overflow-hidden"
+            >
+                <div class="pl-[25px] pr-[73px] py-[7px] bg-white rounded-tl-[7px] rounded-bl-[7px]">
+                    <input
+                            type="text"
+                            class="w-[185px] h-[22px] text-[14px] font-[500]"
+                            placeholder="Enter your email address"
+                    />
+                </div>
+                <div class="px-[49px] py-[7px] text-[16px] font-[700] text-white">
+                    <p>Subscribe</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-between items-center py-[20px] mt-[160px]">
+        <div class="flex gap-[46px] items-center justify-around text-[18px]">
+            <p>Privacy Policy</p>
+            <p>Term of Use</p>
+            <p>Sale and Refunds</p>
+            <p>Legal</p>
+        </div>
+
+        <div class="flex items-center gap-[50px] text-[24px]">
+            <i class="fa-brands fa-instagram"></i>
+            <i class="fa-brands fa-google"></i>
+            <i class="fa-brands fa-facebook"></i>
+        </div>
+    </div>
+</div>
+
+

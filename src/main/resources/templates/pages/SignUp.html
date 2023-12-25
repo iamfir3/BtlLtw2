@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sig Up Page</title>
+
+		<link rel="icon" href="/assets/signup/logo.png" type="image/x-icon" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+			integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<!-- Styles -->
+		<link rel="stylesheet" href="/css/signup/base.css" />
+		<link rel="stylesheet" href="/css/SignUp.css" />
+	</head>
+
+	<body>
+	<style>
+		.app{
+			background-image: linear-gradient(
+					46deg,
+					rgba(33, 33, 33, 0.84) 0%,
+					rgba(66, 66, 66, 0.24) 178.98%
+			),
+			url("/assets/signup/background-signup.jpg");
+		}
+	</style>
+		<div class="app">
+			<div class="login-description">
+				<div class="logo">
+					<img src="/assets/signup/logo.png" alt="logo" class="login-icon" />
+					<p class="logo-text">Furniro</p>
+				</div>
+				<div class="login-content">
+					<h1 class="login-content__heading">Building the Future</h1>
+					<p class="login-content__text">
+						Welcome to Furniro - where Elegance and Luxury meet in home decor.
+						Explore our diverse collection, ranging from traditional to modern,
+						to create the perfect living space for your home. Furniro -
+						Elevating sophistication and style in every detail.
+					</p>
+				</div>
+			</div>
+			<div class="login-form">
+				<form action="" method="POST">
+					<header class="form-header">
+						<p class="welcome-text">Let's get you started</p>
+						<h2 class="form-heading">Create an Account</h2>
+					</header>
+					<div class="form-body">
+						<div class="form-control">
+							<div class="form-input">
+								<input type="text" id="name" name="name" required />
+								<label for="name" class="form-label">Your name</label>
+							</div>
+						</div>
+						<div class="form-control">
+							<div class="form-input">
+								<input type="email" id="email" name="email" required />
+								<label for="email" class="form-label">Email</label>
+							</div>
+						</div>
+						<div class="form-control">
+							<div class="form-input">
+								<input type="password" id="password" name="password" required />
+								<label for="password" class="form-label">Password</label>
+								<i class="fa-regular fa-eye form-icon" id="showPassword"></i>
+								<i
+									class="fa-regular fa-eye-slash form-icon active"
+									id="hidePassword"
+								></i>
+							</div>
+						</div>
+						<div class="form-control">
+							<button class="form-btn" type="submit" id="submit-btn">
+								Get Started
+							</button>
+						</div>
+						<div class="form-separate">
+							<span class="separate-line"></span>
+							<span class="separate-text">Or</span>
+							<span class="separate-line"></span>
+						</div>
+						<div class="login-other">
+							<button class="login-other__btn">
+								<i class="fa-brands fa-google login-other__icon"></i>
+								<p class="login-other__text">Login with Google</p>
+							</button>
+							<button class="login-other__btn">
+								<i class="fa-brands fa-facebook login-other__icon"></i>
+								<p class="login-other__text">Login with Facebook</p>
+							</button>
+							<button class="login-other__btn">
+								<i class="fa-brands fa-apple login-other__icon"></i>
+								<p class="login-other__text">Login with Apple</p>
+							</button>
+						</div>
+					</div>
+					<footer class="form-footer">
+						<p class="form-footer__text">Already have an account?</p>
+						<a href="!#" class="form-link form-footer__link" id="signup"
+							>Login here</a
+						>
+					</footer>
+				</form>
+			</div>
+		</div>
+		<script>
+			const formInputs = document.querySelectorAll(".form-input input");
+			Array.from(formInputs).forEach((formInput) => {
+				const parentElement = formInput.parentElement;
+				const labelInput = parentElement.querySelector(".form-label");
+				formInput.addEventListener("focus", () => {
+					labelInput.classList.add("active");
+					parentElement.style.opacity = "1";
+				});
+				formInput.addEventListener("blur", () => {
+					if (formInput.value.trim() === "") {
+						labelInput.classList.remove("active");
+						parentElement.style.opacity = "0.5";
+					}
+				});
+			});
+
+			const showPassword = document.querySelector("#showPassword");
+			const hidePassword = document.querySelector("#hidePassword");
+			const passwordInput = document.querySelector("input#password");
+
+			showPassword.addEventListener("click", () => {
+				passwordInput.type = "text";
+				hidePassword.classList.add("active");
+				showPassword.classList.remove("active");
+			});
+
+			hidePassword.addEventListener("click", () => {
+				passwordInput.type = "password";
+				hidePassword.classList.remove("active");
+				showPassword.classList.add("active");
+			});
+		</script>
+	</body>
+</html>

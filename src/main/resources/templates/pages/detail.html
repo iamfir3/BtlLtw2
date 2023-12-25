@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{common ::head}">
+</head>
+<head>
+    <link rel="stylesheet" href="/css/details.css">
+</head>
+<body class=" flex justify-center w-full">
+<div class="max-w-[1440px] w-full">
+    <header th:replace="~{common ::header}"></header>
+    <div class="w-full h-[100px] bg-[#F9F1E7] py-[38px] pl-[100px] flex gap-[24px] items-center">
+        <div class="flex items-center gap-[14px] text-[#9f9f9f]">
+            <p>Home</p>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+        <div class="flex items-center gap-[14px] text-[#9f9f9f]">
+            <p>Shop</p>
+            <i class="fa-solid fa-chevron-right"></i>
+        </div>
+
+        <div class="w-[2px] h-[37px] bg-[#9f9f9f] mr-[10px]"></div>
+        <p th:text="${book.title}" class="text-black"></p>
+    </div>
+    <div class="details">
+        <div class="main-details">
+            <div class="img-group">
+                <div class="main-mask">
+                    <img class="main-img" th:src="${book.image}" alt="img"/>
+                </div>
+            </div>
+            <div class="text-details">
+                <p class="prd-name" th:text="${book.title}"></p>
+                <p class="prd-price" th:text=" '$'+${book.price}"></p>
+                <div class="view-rate">
+                    <div class="star-rate">
+                        <img
+                                class="star-icon"
+                                src="/assets/dashicons-star-filled-jdT.png"
+                        />
+                        <img
+                                class="star-icon"
+                                src="/assets/dashicons-star-filled-VBw.png"
+                        />
+                        <img class="star-icon" src="/assets/dashicons-star-filled.png"/>
+                        <img
+                                class="star-icon"
+                                src="/assets/dashicons-star-filled-Hiy.png"
+                        />
+                        <img class="star-icon-half" src="/assets/carbon-star-half.png"/>
+                    </div>
+                    <p class="customer-review">5 Customer Review</p>
+                </div>
+                <div class="desc-group">
+                    <p class="desc" th:text="${book.des}">
+
+                        <br/>
+
+                        <br/>
+                    </p>
+                </div>
+
+                <div class="counter">
+                    <button class="counter-descrease">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <h4 class="counter-number">1</h4>
+                    <button class="counter-increase">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <button class="cart-button" role="cart-button" th:attr="onclick=|handleAddCart('${book.id}')|">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full pt-[48px] border-t-[1px] border-t-[#D9D9D9] min-h-[300px]">
+        <p class="text-[24px] font-[500] text-center">Reviews</p>
+
+    </div>
+    <div class="mt-[55px] border-t-[1px] border-t-[#D9D9D9] pt-[38px]">
+        <p class="text-center text-[36px] font-[500] mb-[26px]"> Related Products</p>
+
+        <div class="flex flex-wrap gap-[32px] justify-center">
+            <div th:each="book1 :${books}" th:limit="10">
+                <div th:replace="common ::bookCard(${book1})"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-[32px]">
+        <div class="bg-white px-[82px] py-[14px] border-[1px] border-[#b88e2f]" onclick="handlerShowMore()">
+            <p class="text-[16px] font-[600] text-[#b88e2f]">Show more</p>
+        </div>
+    </div>
+    <div class="mt-[70px]">
+        <div th:replace="common ::footer"></div>
+    </div>
+
+</div>
+
+<script>
+    const cardHandler = (bookId) => {
+        const redirectUrl = '/detail?id=' + bookId;
+        window.location.href = redirectUrl;
+    }
+    const counterNumber = document.querySelector(".counter-number");
+    const counterAdd = document.querySelector(".counter-increase");
+    const counterMinus = document.querySelector(".counter-descrease");
+    let counterValue = parseInt(counterNumber.textContent);
+    counterAdd.addEventListener("click", function () {
+        counterValue++;
+        counterNumber.textContent = counterValue;
+    });
+    counterMinus.addEventListener("click", function () {
+        if (counterValue <= 1) return 1;
+        counterValue--;
+        counterNumber.textContent = counterValue;
+    });
+
+    const handlerShowMore =()=>{
+        window.location.href="http://localhost:8080/list"
+    }
+
+    const handleAddCart=async (id)=>{
+        const res= await fetch("http://localhost:8080/cartItem",{
+            method:"POST",
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify({
+                userId:localStorage.getItem("userId"),
+                bookId: id,
+                amount: counterValue
+            })
+        })
+        console.log(res.json());
+    }
+
+
+</script>
+<script src="/js/common.js"></script>
+
+
+</body>
+</html>

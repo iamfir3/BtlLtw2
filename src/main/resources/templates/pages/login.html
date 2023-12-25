@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/base2.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+<style>
+    body {
+        background-image: linear-gradient(46deg, rgba(33, 33, 33, 0.84) 0%, rgba(66, 66, 66, 0.24) 178.98%),
+        url("/assets/login-bg.png");
+        /* Thêm các thuộc tính CSS khác nếu cần */
+    }
+</style>
+<div class="app">
+        <div class="login-description">
+            <div class="logo">
+                <img src="/assets/logo3.png" alt="logo" class="login-icon">
+                <p class="logo-text">Furniro</p>
+            </div>
+            <div class="login-content">
+                <h1 class="login-content__heading">Building the Future</h1>
+                <p class="login-content__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione,
+                    asperiores neque. Deserunt
+                    repudiandae facere, alias, earum nam dolorum, odio aliquid dolorem itaque magnam distinctio.
+                    Deleniti ea doloremque adipisci! Voluptas, repellendus.</p>
+            </div>
+        </div>
+        <div class="login-form">
+            <header class="form-header">
+                <p class="welcome-text">Welcome Back</p>
+                <h2 class="form-heading">Log In to your Account</h2>
+            </header>
+            <div class="form-body">
+                <div class="form-control">
+                    <div class="form-input">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email" class="form-label">Email</label>
+                    </div>
+                </div>
+                <div class="form-control">
+                    <div class="form-input">
+                        <input type="password" id="password" name="password" required>
+                        <label for="password" class="form-label">Password</label>
+                        <i class="fa-regular fa-eye form-icon" id="showPassword"></i>
+                        <i class="fa-regular fa-eye-slash form-icon active" id="hidePassword"></i>
+                    </div>
+                </div>
+                <div class="form-control login-forgot">
+                    <div class="login-remember">
+                        <input type="checkbox" name="remember" id="remember">
+                        <label for="remember" class="form-label">Remember me</label>
+                    </div>
+                    <a href="!#" class="form-link" id="forgot">Forgot Password?</a>
+                </div>
+                <div class="form-control">
+                    <button class="form-btn" type="submit" id="submit-btn" onclick="handlerLogin()">Continue</button>
+                </div>
+                <div class="form-separate">
+                    <span class="separate-line"></span>
+                    <span class="separate-text">Or</span>
+                    <span class="separate-line"></span>
+                </div>
+                <div class="login-other">
+                    <button class="login-other__btn">
+                        <i class="fa-brands fa-google login-other__icon"></i>
+                        <p class="login-other__text">Login with Google</p>
+                    </button>
+                    <button class="login-other__btn">
+                        <i class="fa-brands fa-facebook login-other__icon"></i>
+                        <p class="login-other__text">Login with Facebook</p>
+                    </button>
+                    <button class="login-other__btn">
+                        <i class="fa-brands fa-apple login-other__icon"></i>
+                        <p class="login-other__text">Login with Apple</p>
+                    </button>
+                </div>
+            </div>
+            <footer class="form-footer">
+                <p class="form-footer__text">New User?</p>
+                <a href="!#" class="form-link form-footer__link" id="signup">Sign Up Here</a>
+            </footer>
+            <form action="" method="POST">
+
+            </form>
+        </div>
+    </div>
+    <script>
+        const formInputs = document.querySelectorAll('.form-input input');
+        Array.from(formInputs).forEach(formInput => {
+            const parentElement = formInput.parentElement;
+            const labelInput = parentElement.querySelector('.form-label');
+            formInput.addEventListener('focus', () => {
+                labelInput.classList.add('active');
+                parentElement.style.opacity = '1';
+            })
+            formInput.addEventListener('blur', () => {
+                if (formInput.value.trim() === '') {
+                    labelInput.classList.remove('active');
+                    parentElement.style.opacity = '0.5';
+                }
+            })
+        });
+
+        const showPassword = document.querySelector('#showPassword');
+        const hidePassword = document.querySelector('#hidePassword');
+        const passwordInput = document.querySelector('input#password');
+
+        showPassword.addEventListener('click', () => {
+            passwordInput.type = 'text';
+            hidePassword.classList.add('active');
+            showPassword.classList.remove('active');
+        })
+
+        hidePassword.addEventListener('click', () => {
+            passwordInput.type = 'password';
+            hidePassword.classList.remove('active');
+            showPassword.classList.add('active');
+
+        })
+
+        const handlerLogin=async()=> {
+                let res = await fetch("http://localhost:8080/auth/login", {
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        email: document.getElementById("email").value,
+                        password: document.getElementById("password").value
+                    })
+                })
+
+                if(res.status===200){
+                    res=await res.json();
+                    localStorage.setItem("isLoggedIn","true")
+                    localStorage.setItem("userId",res.id)
+                    window.location.href="http://localhost:8080"
+                }
+                else {
+                    alert("Wrong email/password")
+                }
+
+
+        }
+    </script>
+</body>
+
+</html>
