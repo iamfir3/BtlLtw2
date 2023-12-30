@@ -12,7 +12,7 @@
 .book_card__hover{
     transition: all .5s ease-in-out;
     opacity: 0;
-    visibility: invisible;
+    visibility: hidden;
 }
 
 .book_cart__1{

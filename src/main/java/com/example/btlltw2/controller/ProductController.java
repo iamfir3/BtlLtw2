@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-@Controller
+@RestController
 public class ProductController {
     @Autowired
     private BookRepository bookRepository;
@@ -40,9 +40,8 @@ public class ProductController {
             book.setAuthor("Author " + i);
             book.setDes("Description " + i);
             book.setDay(new Date());
-            book.setCount(random.nextInt(100) + 1);
             book.setImage("/assets/book1.png");
-            book.setPrice(random.nextFloat() * 100);
+            book.setPrice(random.nextInt() * 100);
             book.setQuantity(random.nextInt(50) + 1);
             book.setSold(random.nextInt(20));
             book.setCategory(random.nextBoolean() ? category1 : category2);

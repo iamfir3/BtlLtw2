@@ -92,7 +92,7 @@
             </div>
             <footer class="form-footer">
                 <p class="form-footer__text">New User?</p>
-                <a href="!#" class="form-link form-footer__link" id="signup">Sign Up Here</a>
+                <a href="/signup" class="form-link form-footer__link" id="signup">Sign Up Here</a>
             </footer>
             <form action="" method="POST">
 
@@ -149,10 +149,13 @@
                     res=await res.json();
                     localStorage.setItem("isLoggedIn","true")
                     localStorage.setItem("userId",res.id)
+                    localStorage.setItem("email",res.email)
+                    localStorage.setItem("position",res.position)
+
                     window.location.href="http://localhost:8080"
                 }
                 else {
-                    alert("Wrong email/password")
+                    alert("Sai tài khoản/mật khẩu!")
                 }
 
 

@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class RegisterCommand {
-
+    private String name;
+    private String email;
+    private String password;
+    private String position;
 }

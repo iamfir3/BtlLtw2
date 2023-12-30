@@ -1,18 +1,16 @@
 package com.example.btlltw2.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Bill {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +20,13 @@ public class Bill {
 	private Date paymentTime;
 	private String address;
 	private String phone;
-	private String payment;
-	private int totalAmount;
-	private float totalPrice;
+	private String nameReceiver;
 
-	@OneToMany
+	@Enumerated(EnumType.STRING)
+	private BillStatus status;
+	private String paymentCode;
+
+	@OneToMany(mappedBy = "bill",cascade = {CascadeType.ALL})
 	private List<ItemBill> itemBills;
 
 	@ManyToOne

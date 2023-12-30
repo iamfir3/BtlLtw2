@@ -34,6 +34,7 @@
 					rgba(66, 66, 66, 0.24) 178.98%
 			),
 			url("/assets/signup/background-signup.jpg");
+			height: 100vh;
 		}
 	</style>
 		<div class="app">
@@ -52,68 +53,66 @@
 					</p>
 				</div>
 			</div>
-			<div class="login-form">
-				<form action="" method="POST">
-					<header class="form-header">
-						<p class="welcome-text">Let's get you started</p>
-						<h2 class="form-heading">Create an Account</h2>
-					</header>
-					<div class="form-body">
-						<div class="form-control">
-							<div class="form-input">
-								<input type="text" id="name" name="name" required />
-								<label for="name" class="form-label">Your name</label>
-							</div>
-						</div>
-						<div class="form-control">
-							<div class="form-input">
-								<input type="email" id="email" name="email" required />
-								<label for="email" class="form-label">Email</label>
-							</div>
-						</div>
-						<div class="form-control">
-							<div class="form-input">
-								<input type="password" id="password" name="password" required />
-								<label for="password" class="form-label">Password</label>
-								<i class="fa-regular fa-eye form-icon" id="showPassword"></i>
-								<i
-									class="fa-regular fa-eye-slash form-icon active"
-									id="hidePassword"
-								></i>
-							</div>
-						</div>
-						<div class="form-control">
-							<button class="form-btn" type="submit" id="submit-btn">
-								Get Started
-							</button>
-						</div>
-						<div class="form-separate">
-							<span class="separate-line"></span>
-							<span class="separate-text">Or</span>
-							<span class="separate-line"></span>
-						</div>
-						<div class="login-other">
-							<button class="login-other__btn">
-								<i class="fa-brands fa-google login-other__icon"></i>
-								<p class="login-other__text">Login with Google</p>
-							</button>
-							<button class="login-other__btn">
-								<i class="fa-brands fa-facebook login-other__icon"></i>
-								<p class="login-other__text">Login with Facebook</p>
-							</button>
-							<button class="login-other__btn">
-								<i class="fa-brands fa-apple login-other__icon"></i>
-								<p class="login-other__text">Login with Apple</p>
-							</button>
+			<div class="login-form" style="height: 100%">
+				<header class="form-header">
+					<p class="welcome-text">Let's get you started</p>
+					<h2 class="form-heading">Create an Account</h2>
+				</header>
+				<div class="form-body">
+					<div class="form-control">
+						<div class="form-input">
+							<input type="text" id="name" name="name" required />
+							<label for="name" class="form-label">Your name</label>
 						</div>
 					</div>
-					<footer class="form-footer">
-						<p class="form-footer__text">Already have an account?</p>
-						<a href="!#" class="form-link form-footer__link" id="signup"
-							>Login here</a
-						>
-					</footer>
-				</form>
+					<div class="form-control">
+						<div class="form-input">
+							<input type="email" id="email" name="email" required />
+							<label for="email" class="form-label">Email</label>
+						</div>
+					</div>
+					<div class="form-control">
+						<div class="form-input">
+							<input type="password" id="password" name="password" required />
+							<label for="password" class="form-label">Password</label>
+							<i class="fa-regular fa-eye form-icon" id="showPassword"></i>
+							<i
+									class="fa-regular fa-eye-slash form-icon active"
+									id="hidePassword"
+							></i>
+						</div>
+					</div>
+					<div class="form-control">
+						<button class="form-btn" type="submit" id="submit-btn" onclick="signup()">
+							Get Started
+						</button>
+					</div>
+					<div class="form-separate">
+						<span class="separate-line"></span>
+						<span class="separate-text">Or</span>
+						<span class="separate-line"></span>
+					</div>
+					<div class="login-other">
+						<button class="login-other__btn">
+							<i class="fa-brands fa-google login-other__icon"></i>
+							<p class="login-other__text">Login with Google</p>
+						</button>
+						<button class="login-other__btn">
+							<i class="fa-brands fa-facebook login-other__icon"></i>
+							<p class="login-other__text">Login with Facebook</p>
+						</button>
+						<button class="login-other__btn">
+							<i class="fa-brands fa-apple login-other__icon"></i>
+							<p class="login-other__text">Login with Apple</p>
+						</button>
+					</div>
+				</div>
+				<footer class="form-footer">
+					<p class="form-footer__text">Already have an account?</p>
+					<a href="/login" class="form-link form-footer__link" id="signup"
+					>Login here</a
+					>
+				</footer>
 			</div>
 		</div>
 		<script>
@@ -148,6 +147,34 @@
 				hidePassword.classList.remove("active");
 				showPassword.classList.add("active");
 			});
+
+			const email=document.getElementById("email");
+			const password=document.getElementById("password");
+			const name=document.getElementById("name");
+			const signup=async ()=>{
+				try{
+					const res = await fetch("http://localhost:8080/auth/register", {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body:JSON.stringify({
+							name:name.value,
+							email:email.value,
+							password:password.value
+						})
+					});
+					if(res.ok){
+						alert('Đăng ký thành công!');
+					}else{
+						const errorResponse = await res.json();
+						alert(errorResponse.message);
+					}
+				}
+				catch (e) {
+					alert("Có lỗi xảy ra! Vui lòng thử lại sau");
+				}
+			}
 		</script>
 	</body>
 </html>

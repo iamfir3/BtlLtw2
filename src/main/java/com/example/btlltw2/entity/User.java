@@ -1,10 +1,7 @@
 package com.example.btlltw2.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +22,9 @@ public class User {
 	private String password;
 	private String position;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(cascade = {CascadeType.ALL})
 	private List<Bill> billList;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL},mappedBy = "user")
 	private CartEntity cart;
 }

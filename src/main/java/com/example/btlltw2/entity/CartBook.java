@@ -1,16 +1,14 @@
 package com.example.btlltw2.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CartBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

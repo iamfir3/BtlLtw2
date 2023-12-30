@@ -1,10 +1,7 @@
 package com.example.btlltw2.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,19 +10,16 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @OneToMany(mappedBy = "cart",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-    private List<Book> bookList;
-
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     private User user;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL},mappedBy = "cart")
     private List<CartBook> cartBooks;
-
 }

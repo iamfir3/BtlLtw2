@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{commonAdmin ::headAdmin}">
+
+</head>
+
+<body>
+<!-- toast -->
+<div id="toast"></div>
+<!-- body -->
+<section th:replace="~{commonAdmin ::adminSidebar(activeLi='product')}"></section>
+<section id="content">
+    <nav th:replace="~{commonAdmin ::adminNav}"></nav>
+
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Products</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="#">Products</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ul id="box-info__product" class="box-info">
+            <li>
+                <i class='bx bxs-purchase-tag'></i>
+                <span class="text">
+                      <h3 th:text="${categories.size()}"></h3>
+            <p>Categories</p>
+          </span>
+            </li>
+            <li>
+                <i class='bx bxs-category'></i>
+                <span class="text">
+            <h3 th:text="${books.size()}"></h3>
+            <p>Books</p>
+          </span>
+            </li>
+        </ul>
+        <!-- Table Data -->
+        <div class="table-data">
+            <div class="table-category table-container">
+                <div class="head">
+                    <h3>Categories</h3>
+                    <button class="btn success-color" id="addCategoryBtn">
+                        <span class="btn-icon"><i class="bx bx-plus"></i></span>
+                        <a href="/category_form?action=add-category&id=-1" class="btn-label">Add New</a>
+                    </button>
+                    <span class="head-icon">
+              <a href="#"><i class="bx bx-search"></i></a>
+            </span>
+                    <span class="head-icon">
+              <a href="#"><i class="bx bx-filter"></i></a>
+            </span>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Product Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="category, iterStat : ${categories}">
+                        <td>
+                            <p th:text="${iterStat.index + 1}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${category.getName()}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${category.getBooks().size()}"></p>
+                        </td>
+                        <td class="action">
+                  <span class="action-icon">
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                  </span>
+                            <ul class="action-list">
+                                <li class="action-item">
+                                    <a th:href="@{'/category_form?action=view-category&id=' + ${category.getId()}}">
+    <span class="action-item__icon">
+        <i class='bx bxs-detail'></i>
+    </span>
+                                        <span>View</span>
+                                    </a>
+                                </li>
+                                <li class="action-item">
+                                    <a th:href="@{'/category_form?action=edit-category&id=' + ${category.getId()}}">
+    <span class="action-item__icon">
+        <i class='bx bxs-edit'></i>
+    </span>
+                                        <span>Edit</span>
+                                    </a>
+                                </li>
+                                <li class="action-item">
+                                    <a href="#" class="red-color">
+                        <span class="action-item__icon">
+                          <i class='bx bxs-x-circle'></i>
+                        </span>
+                                        <span>Delete</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="table-data">
+            <div class="table-product table-container">
+                <div class="head">
+                    <h3>Products</h3>
+                    <button class="btn success-color" id="addProductBtn">
+                        <span class="btn-icon"><i class="bx bx-plus"></i></span>
+                        <a href="/product_form" class="btn-label">Add New</a>
+                    </button>
+                    <span class="head-icon">
+              <a href="#"><i class="bx bx-search"></i></a>
+            </span>
+                    <span class="head-icon">
+              <a href="#"><i class="bx bx-filter"></i></a>
+            </span>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="book, iterStat : ${books}">
+                        <td>
+                            <p th:text="${iterStat.index + 1}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${book.getTitle()}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${book.getPrice()}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${book.getQuantity()}"></p>
+                        </td>
+                        <td class="action">
+                  <span class="action-icon">
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                  </span>
+                            <ul class="action-list">
+                                <li class="action-item">
+                                    <a th:href="@{'/product_form?action=view-product&id=' + ${book.getId()}}">
+    <span class="action-item__icon">
+        <i class='bx bxs-detail'></i>
+    </span>
+                                        <span>View</span></a>
+                                </li>
+                                <li class="action-item">
+                                    <a th:href="@{'/product_form?action=edit-product&id='  + ${book.getId()}}">
+    <span class="action-item__icon">
+        <i class='bx bxs-edit'></i>
+    </span>
+                                        <span>Edit</span>
+                                    </a>
+
+                                </li>
+                                <li class="action-item">
+                                    <a href="#" class="red-color">
+                        <span class="action-item__icon">
+                          <i class='bx bxs-x-circle'></i>
+                        </span>
+                                        <span>Delete</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</section>
+<script src="/admin/scripts/script.js"></script>
+<script src="/admin/scripts/product_admin.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+        integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>

@@ -1,0 +1,205 @@
+/* Product forms */
+#form-manage {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+
+#form-manage.view-product #category-form,
+#form-manage.edit-product #category-form {
+  display: none;
+}
+
+#form-manage.view-product #addProductBtn {
+  display: none;
+}
+
+#category-form {
+  width: 40%;
+  height: fit-content;
+}
+
+#product-form {
+  width: 58%;
+  height: fit-content;
+}
+
+#form-manage form {
+  border-radius: 20px;
+  background: var(--light);
+  padding: 24px;
+  overflow-x: auto;
+}
+
+#form-manage form .head h3 {
+  margin-right: auto;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+#form-manage .btn.submit-btn {
+  background-color: var(--success-color);
+}
+
+#form-manage .btn:first-of-type {
+  margin-left: auto;
+}
+
+#form-manage .btn:not(:first-of-type) {
+  margin-left: 24px;
+}
+
+#form-manage.btn:hover {
+  background-color: rgba(60, 145, 230, 0.85);
+}
+
+#form-manage.btn:active {
+  transform: scale(0.98);
+  background-color: var(--blue);
+}
+
+#form-manage #saveProductBtn {
+  display: none;
+}
+
+#form-manage.edit-product #addProductBtn {
+  display: none;
+}
+
+#form-manage.edit-product #saveProductBtn {
+  display: flex;
+}
+
+
+.form-group {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.form-group:not(:first-child):not(:last-child) {
+  margin: 24px 0;
+}
+
+.form-group .input-wrapper {
+  position: relative;
+}
+
+.form-group .form-input {
+  font-size: 16px;
+  color: var(--dark);
+  caret-color: rgb(60, 145, 230);
+  padding: 6px 12px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background-color: rgba(60, 145, 230, 0.1);
+  transition: all 0.15s ease;
+}
+
+.form-group .form-input:focus {
+  background-color: rgba(60, 145, 230, 0.2);
+}
+
+.form-group .form-select {
+  font-size: 16px;
+  padding: 8px 12px;
+  background-color: rgba(60, 145, 230, 0.1);
+  border: none;
+  outline: none;
+}
+
+#form-manage form .input-wrapper textarea {
+  resize: vertical;
+  border: 1px solid transparent;
+}
+
+#form-manage form .input-wrapper textarea:focus {
+  border: 1px solid var(--blue);
+  background-color: var(--light);
+}
+
+.input-wrapper .input-line {
+  position: absolute;
+  display: block;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: rgb(60, 145, 230);
+  transition: all 0.5s ease-in-out;
+}
+
+.input-wrapper .form-input:focus+.input-line {
+  width: 100%;
+}
+
+.productImgaeView {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 1;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  color: var(--blue);
+  border: 2px dashed var(--blue);
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  background-clip: border-box;
+}
+
+.productImgaeView.active {
+  background-color: rgba(60, 145, 230, 0.2);
+}
+
+.productImgaeView .productImgaeView__icon {
+  display: flex;
+  font-size: 72px;
+  color: rgba(60, 145, 230, 0.5);
+}
+
+@media screen and (max-width: 1200px) {
+  #form-manage {
+    flex-direction: column;
+  }
+
+  #category-form,
+  #product-form {
+    width: 100%;
+  }
+
+  #form-manage form {
+    margin-top: 36px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form-group {
+    flex-direction: column;
+  }
+
+  .form-group .input-wrapper {
+    width: 100%;
+  }
+
+  .form-group .form-label {
+    margin-bottom: 8px;
+  }
+
+  .form-group textarea,
+  .form-group select,
+  .form-group input {
+    width: 100%;
+  }
+
+}

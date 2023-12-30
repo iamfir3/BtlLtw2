@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head  th:fragment="headAdmin">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap-grid.min.css"
+          integrity="sha512-ZuRTqfQ3jNAKvJskDAU/hxbX1w25g41bANOVd1Co6GahIe2XjM6uVZ9dh0Nt3KFCOA061amfF2VeL60aJXdwwQ=="
+          crossorigin="anonymous" referrerpolicy="Zno-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+            rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/admin/styles/style.css" />
+    <link rel="stylesheet" href="/admin/styles/toast.css" />
+    <link rel="stylesheet" href="/admin/styles/product_admin.css" />
+    <link rel="stylesheet" href="/admin/styles/product_form.css" />
+    <link rel="stylesheet" href="/admin/styles/category_form.css">
+
+</head>
+<body>
+
+<nav th:fragment="adminNav">
+    <i class="bx bx-menu"></i>
+    <a href="#" class="nav-link">Categories</a>
+    <form action="#">
+        <div class="form-input">
+            <input type="search" placeholder="Search..." />
+            <button type="submit" class="search-btn">
+                <i class="bx bx-search"></i>
+            </button>
+        </div>
+    </form>
+    <a href="#" class="profile">
+        <img src="img/user.jpg" />
+    </a>
+</nav>
+
+<section id="sidebar" th:fragment="adminSidebar(activeLi)">
+    <a href="/admin" class="brand">
+        <i class='bx bxs-user-rectangle'></i>
+        <span class="text">Admin Page</span>
+    </a>
+    <ul class="side-menu top">
+        <li th:class="${activeLi == 'dashboard' ? 'active' : ''}">
+            <a href="/admin">
+                <i class="bx bxs-dashboard"></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+        <li id="side-menu__product" th:class="${activeLi == 'product' ? 'active' : ''}">
+            <a href="/product_admin">
+                <i class="bx bxs-shopping-bag-alt"></i>
+                <span class="text">Product</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li th:class="${activeLi == 'settings' ? 'active' : ''}">
+            <a href="#">
+                <i class="bx bxs-cog"></i>
+                <span class="text">Settings</span>
+            </a>
+        </li>
+        <li th:class="${activeLi == 'logout' ? 'active' : ''}">
+            <a href="#" class="logout">
+                <i class="bx bxs-log-out-circle"></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+    </ul>
+</section>
+</body>
+</html>

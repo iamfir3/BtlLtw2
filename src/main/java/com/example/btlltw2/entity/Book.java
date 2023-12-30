@@ -1,10 +1,7 @@
 package com.example.btlltw2.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,22 +22,18 @@ public class Book {
 	private String author;
 	private String des;
 	private Date day;
-	private int count;
 	private String image;
-	private float price;
+	private int price;
 	private int quantity;
 	private int sold;
 
 	@ManyToOne
 	private Category category;
 
-	@OneToMany
+	@OneToMany(mappedBy = "book",cascade = {CascadeType.ALL})
 	private List<ItemBill> itemBill;
 
-	@ManyToOne
-	private CartEntity cart;
-
-	@OneToMany
+	@OneToMany(mappedBy = "book",cascade = {CascadeType.ALL})
 	private List<CartBook> cartBooks;
 
 }

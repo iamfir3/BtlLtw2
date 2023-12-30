@@ -2,15 +2,15 @@ package com.example.btlltw2.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.Date;
 
 @Entity
 @Setter
 @Getter
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 public class ItemBill {
 	@Id
