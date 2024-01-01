@@ -1,0 +1,74 @@
+<!--Website: wwww.codingdung.com-->
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{common ::head}">
+</head>
+  <head>
+    <link rel="stylesheet" href="/profile/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class=" flex justify-center w-full">
+  <div class="max-w-[1440px] w-full">
+    <header th:replace="~{common ::header}"></header>
+    <div class="container light-style flex-grow-1 container-p-y">
+      <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+          <div class="col-md-3 pt-0">
+            <div th:replace="~{common ::userTab(activeDiv='list')}" class="list-group list-group-flush account-settings-links">
+              <a
+                      class="list-group-item list-group-item-action active"
+                      data-toggle="list"
+                      href="/profile?id"
+              >General</a
+              >
+              <a
+                      class="list-group-item list-group-item-action"
+                      data-toggle="list"
+                      href="#account-change-password"
+              >Change password</a
+              >
+              <a
+                      class="list-group-item list-group-item-action"
+                      data-toggle="list"
+                      href="#account-orders"
+              >Your orders</a
+              >
+              <a
+                      class="list-group-item list-group-item-action"
+                      data-toggle="list"
+                      href="#account-products"
+              >Your lists</a
+              >
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="tab-content">
+              <div class="tab-pane fade active show" id="account-general">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-[70px]">
+      <div th:replace="common ::footer"></div>
+    </div>
+  </div>
+
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"></script>
+  <script src="/js/common.js"></script>
+
+  </body>
+</html>

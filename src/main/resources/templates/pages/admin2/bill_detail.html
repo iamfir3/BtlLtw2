@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Page</title>
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap-grid.min.css"
+    integrity="sha512-ZuRTqfQ3jNAKvJskDAU/hxbX1w25g41bANOVd1Co6GahIe2XjM6uVZ9dh0Nt3KFCOA061amfF2VeL60aJXdwwQ=="
+    crossorigin="anonymous" referrerpolicy="Zno-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/admin2/styles/style.css" />
+  <link rel="stylesheet" href="/admin2/styles/toast.css" />
+  <link rel="stylesheet" href="/admin2/styles/product_admin.css" />
+  <link rel="stylesheet" href="/admin2/styles/bill_detail.css">
+  <link rel="stylesheet" href="/admin2/styles/fix_style.css">
+</head>
+
+<body>
+  <!-- toast -->
+  <div id="toast"></div>
+  <!-- body -->
+  <section th:replace="~{commonAdmin ::adminSidebar(activeLi='bill')}"></section>
+  <section id="content">
+    <nav th:replace="~{commonAdmin ::adminNav}"></nav>
+
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Order Detail</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a href="#">Dashboard</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a href="#">Bill</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a class="active" href="#">View Order</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <section id="order-detail">
+        <div class="order-detail__container">
+          <header class="order-detail__header">
+            <h2 class="order-detail__title">Order Infomation</h2>
+          </header>
+          <div class="order-detail__body">
+            <div class="wrapper container-fluid">
+              <div class="header row">
+                <h3>Order</h3>
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>Order Id:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p th:text="${bill.getId()}"></p>
+                </div>
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>Payment time:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p th:text="${#dates.format(bill.paymentTime, 'dd-MM-yyyy hh:mm a')}"></p>
+                </div>
+
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>Payment code:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p th:text="${bill.getPaymentCode()}"></p>
+                </div>
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>Status:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p  th:if="${bill.getStatus()+'' =='COMPLETED'}" class="status blue-color" th:text="${bill.status}"></p>
+                  <p  th:if="${bill.getStatus()+'' =='PENDING'}" class="status orange-color" th:text="${bill.status}"></p>
+                  <p  th:if="${bill.getStatus()+'' =='SHIPPING'}" class="status green-color" th:text="${bill.status}"></p>
+                  <p  th:if="${bill.getStatus()+'' =='CANCELED'}" class="status red-color" th:text="${bill.status}"></p>
+                  <p  th:if="${bill.getStatus()+'' =='PREPARING'}" class="status yellow-color" th:text="${bill.status}"></p>
+
+                </div>
+              </div>
+            </div>
+            <!-- <hr> -->
+            <div class="wrapper container-fluid">
+              <div class="header row">
+                <h3>Receiver</h3>
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>Receiver's Name:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p th:text="${bill.getNameReceiver()}"></p>
+                </div>
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>PhoneNumber:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p th:text="${bill.phone}"></p>
+                </div>
+              </div>
+              <div class="detail-group row">
+                <div class="detail-group__label col-md-2 col-sm-12">
+                  <h4>Address:</h4>
+                </div>
+                <div class="detail-group__content col-md-10 col-sm-12">
+                  <p th:text="${bill.address}"></p>
+                </div>
+              </div>
+            </div>
+            <!-- <hr> -->
+            <div class="wrapper container-fluid">
+              <div class="header row">
+                <h3>Products</h3>
+              </div>
+              <ul class="order-detail__product-list">
+
+                <li th:each="item : ${bill.getItemBills()}" class="wrapper order-detail__product-item">
+                  <div class="row">
+                    <div class="product-item__img col-md-2 col-sm-12">
+                      <img th:src="${item.book.image}" alt="Ảnh sách" style="object-fit: cover">
+                    </div>
+                    <div class="product-item__info col-md-10 col-sm-12">
+                      <div class="detail-group row">
+                        <div class="detail-group__label col-md-2 col-sm-12">
+                          <h4>Name:</h4>
+                        </div>
+                        <div class="detail-group__content col-md-10 col-sm-12">
+                          <p th:text="${item.book.title}"></p>
+                        </div>
+                      </div>
+                      <div class="detail-group row">
+                        <div class="detail-group__label col-md-2 col-sm-12">
+                          <h4>Count:</h4>
+                        </div>
+                        <div class="detail-group__content col-md-10 col-sm-12">
+                          <p th:text="${item.amount}"></p>
+                        </div>
+                      </div>
+                      <div class="detail-group row">
+                        <div class="detail-group__label col-md-2 col-sm-12">
+                          <h4>Price:</h4>
+                        </div>
+                        <div class="detail-group__content col-md-10 col-sm-12">
+                          <span th:text="${#numbers.formatDecimal(item.amount*item.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+            </ul>
+            <div class="wrapper container-fluid">
+
+            </div>
+          </div>
+        </div>
+        </div>
+      </section>
+
+    </main>
+  </section>
+  <script src="/admin2/scripts/script.js"></script>
+  <script src="/admin2/scripts/fix_script.js"></script>
+  <script type="module" src="/admin2/scripts/toast.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>

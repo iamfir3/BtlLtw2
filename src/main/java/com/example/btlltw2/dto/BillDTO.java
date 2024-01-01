@@ -21,5 +21,8 @@ public class BillDTO {
     private List<BillItemDTO> items;
     private Long userId;
     private Long cartId;
+    private Long bookId;
+    private int point;
+    private String comment;
 
 }

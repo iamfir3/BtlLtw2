@@ -50,10 +50,6 @@ body {
   overflow-x: hidden;
 }
 
-
-
-
-
 /* SIDEBAR */
 #sidebar {
   position: fixed;
@@ -507,8 +503,7 @@ body {
   cursor: pointer;
   font-size: 24px;
   border-radius: 999px;
-  width: 42px;
-  height: 42px;
+
   transition: all 0.2s ease;
 }
 
@@ -567,12 +562,20 @@ body {
   background: var(--blue);
 }
 
-#content main .table-data .table-container table tr td .status.process {
-  background: var(--yellow);
+#content main .table-data .table-container table tr td .status.shipping {
+  background: var(--green);
 }
 
 #content main .table-data .table-container table tr td .status.pending {
   background: var(--orange);
+}
+
+#content main .table-data .table-container table tr td .status.canceled {
+  background: var(--red);
+}
+
+#content main .table-data .table-container table tr td .status.preparing {
+  background: var(--yellow);
 }
 
 

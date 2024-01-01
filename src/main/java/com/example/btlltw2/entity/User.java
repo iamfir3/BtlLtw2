@@ -27,4 +27,7 @@ public class User {
 
 	@OneToOne(cascade = {CascadeType.ALL},mappedBy = "user")
 	private CartEntity cart;
+
+	@OneToMany(cascade = {CascadeType.ALL})
+	private List<Comment> comments;
 }

@@ -1,0 +1,76 @@
+#content #order-detail {
+  border-radius: 20px;
+  background: var(--light);
+  padding: 24px;
+  overflow-x: auto;
+  margin-top: 36px;
+}
+
+#content #order-detail hr {
+  border-color: var(--dark-grey);
+  margin: 4px 0;
+}
+
+#content #order-detail .order-detail__header .order-detail__title {
+  font-weight: 500;
+}
+
+#content #order-detail .order-detail__body {
+  margin-top: 24px;
+}
+
+#content #order-detail .order-detail__body .wrapper {
+  padding: 12px;
+  border: 1px solid var(--grey);
+}
+
+#content #order-detail .order-detail__body .wrapper .header {
+  color: var(--dark);
+  padding: 8px 0;
+  background-color: var(--grey);
+}
+
+#content #order-detail .order-detail__body .wrapper .header h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#content #order-detail .order-detail__body .wrapper:first-of-type {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+#content #order-detail .order-detail__body .wrapper:last-of-type {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+#content #order-detail .order-detail__body .detail-group {
+  padding: 4px 0;
+  transition: all 0.2s ease;
+}
+
+#content #order-detail .order-detail__body .detail-group:hover {
+  background-color: var(--grey);
+}
+
+#content #order-detail .order-detail__body .detail-group:hover .wrapper {
+  border-color: var(--light);
+}
+
+#order-detail .order-detail__product-list {
+  margin-top: 8px;
+}
+
+#order-detail .order-detail__body .detail-group .detail-group__label h4 {
+  font-weight: 600;
+}
+
+#order-detail .order-detail__body .order-detail__product-item .product-item__img img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+#order-detail .btn.back-btn {
+  margin-left: auto;
+}

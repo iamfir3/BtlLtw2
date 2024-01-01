@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Admin Page</title>
+    <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap-grid.min.css"
+          integrity="sha512-ZuRTqfQ3jNAKvJskDAU/hxbX1w25g41bANOVd1Co6GahIe2XjM6uVZ9dh0Nt3KFCOA061amfF2VeL60aJXdwwQ=="
+          crossorigin="anonymous" referrerpolicy="Zno-referrer"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+            rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/admin2/styles/style.css"/>
+    <link rel="stylesheet" href="/admin2/styles/toast.css"/>
+    <link rel="stylesheet" href="/admin2/styles/product_admin.css"/>
+    <link rel="stylesheet" href="/admin2/styles/product_form.css"/>
+    <link rel="stylesheet" href="/admin2/styles/bill_admin.css">
+    <link rel="stylesheet" href="/admin2/styles/fix_style.css">
+</head>
+
+<body>
+<!-- toast -->
+<div id="toast"></div>
+<!-- body -->
+<section th:replace="~{commonAdmin ::adminSidebar(activeLi='bill')}"></section>
+<section id="content">
+    <nav th:replace="~{commonAdmin ::adminNav}"></nav>
+
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Orders</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li><i class="bx bx-chevron-right"></i></li>
+                    <li>
+                        <a class="active" href="#">Bill</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <ul id="box-info__dashboard" class="box-info">
+            <li>
+                <i class="bx bxs-calendar-check"></i>
+                <span class="text">
+            <h3 id="completed"></h3>
+            <p>Completed</p>
+          </span>
+            </li>
+            <li>
+                <i class='bx bxs-analyse'></i>
+                <span class="text">
+            <h3 id="preparing"></h3>
+            <p>Preparing</p>
+          </span>
+            </li>
+            <li>
+                <i class='bx bxl-stack-overflow'></i>
+                <span class="text">
+            <h3 id="pending"></h3>
+            <p>Pending</p>
+          </span>
+            </li>
+            <li>
+                <i class='bx bxs-send'></i>
+                <span class="text">
+            <h3 id="shipping"></h3>
+            <p>Shipping</p>
+          </span>
+            </li>
+            <li>
+                <i class='bx bxs-x-circle'></i>
+                <span class="text">
+            <h3 id="canceled"></h3>
+            <p>Canceled</p>
+          </span>
+            </li>
+            <li>
+                <i class="bx bxs-dollar-circle"></i>
+                <span class="text">
+            <h3 id="money"></h3>
+            <p>Totol sales</p>
+          </span>
+            </li>
+        </ul>
+
+        <div class="table-data">
+            <div class="order table-container" style="height: 700px">
+                <div class="head">
+                    <h3>Orders</h3>
+                    <!-- Data filter form -->
+                    <form action="" method="get" class="form date-filter-form">
+                        <div class="form-group">
+                            <label class="form-label" for="start-date">From:</label>
+                            <div class="input-wrapper">
+                                <input required class="form-input" type="date" name="start-date" id="start-date"
+                                       placeholder="Enter Product Data" onchange="fetchD()"/>
+                                <span class="input-line"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="end-date">To:</label>
+                            <div class="input-wrapper">
+                                <input class="form-input" type="date" name="end-date" id="end-date"
+                                       placeholder="Enter Product Data" onchange="fetchD()"/>
+                                <span class="input-line"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn submit-btn">
+            <span class="head-icon">
+                <i class='bx bx-filter-alt'></i>
+            </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- End Data filter form -->
+                    <!-- <span class="head-icon">
+                      <a href="#"><i class="bx bx-filter"></i></a>
+                    </span> -->
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Bill code</th>
+                        <th>Receiver</th>
+                        <th>Phone number</th>
+                        <th>Adress</th>
+                        <th>Created at</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="bill : ${bills}">
+                        <td>
+                            <p th:text="${bill.id}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${bill.nameReceiver}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${bill.phone}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${bill.address}"></p>
+                        </td>
+                        <td>
+                            <p th:text="${#dates.format(bill.paymentTime, 'dd-MM-yyyy')}"></p>
+                        </td>
+                        <td>
+    <span th:class="'status ' + ${#strings.toLowerCase(bill.status)}" th:text="${bill.status}">
+    </span>
+                        </td>
+                        <td class="action">
+                  <span class="action-icon">
+                    <i class='bx bx-dots-horizontal-rounded'></i>
+                  </span>
+                            <ul class="action-list">
+                                <li class="action-item">
+                                    <a th:href="@{'/bill_detail?billId=' + ${bill.getId()}}">
+                        <span class="action-item__icon">
+                          <i class='bx bxs-detail'></i>
+                        </span>
+                                        <span>View</span>
+                                    </a>
+                                </li>
+
+                                <hr>
+                                <li class="action-item"
+                                    th:if="${bill.status+'' =='SHIPPING'}">
+                                    <div th:onclick="|handleChangeStatus(${bill.id},'COMPLETED')|" class="blue-color">
+        <span class="action-item__icon">
+            <i class='bx bxs-calendar-check'></i>
+        </span>
+                                        <span>Completed</span>
+                                    </div>
+                                </li>
+
+                                <li class="action-item"
+                                    th:onclick="|handleChangeStatus(${bill.id},'PREPARING')|"
+                                    th:if="${bill.getStatus()+'' =='PENDING'}">
+                                    <div  class="yellow-color">
+                        <span class="action-item__icon">
+                          <i class='bx bxs-analyse'></i>
+                        </span>
+                                        <span>Preparing</span>
+                                    </div>
+                                </li>
+                                <li class="action-item"
+                                    th:onclick="|handleChangeStatus(${bill.id},'SHIPPING')|"
+                                    th:if="${bill.status+'' =='PREPARING'}">
+                                    <div class="green-color">
+                        <span class="action-item__icon">
+                          <i class='bx bxs-send'></i>
+                        </span>
+                                        <span>Shipping</span>
+                                    </div>
+                                </li>
+                                <li class="action-item"
+                                    th:onclick="|handleChangeStatus(${bill.id},'CANCELED')|"
+                                    th:if="${bill.status+'' =='SHIPPING'}">
+                                    <div  class="red-color">
+                        <span class="action-item__icon">
+                          <i class='bx bxs-x-circle'></i>
+                        </span>
+                                        <span>Canceled</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+</section>
+<script src="/admin2/scripts/script.js"></script>
+<script src="/admin2/scripts/product_admin.js"></script>
+<script type="module" src="/admin2/scripts/bill_admin.js"></script>
+<script src="/admin2/scripts/fix_script.js"></script>
+<script type="module" src="/admin2/scripts/toast.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+        integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var startDateInput = document.getElementById('start-date');
+        var endDateInput = document.getElementById('end-date');
+
+        var now = new Date();
+        var firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        startDateInput.valueAsDate = firstDayOfMonth;
+        endDateInput.valueAsDate = now;
+
+        const ngayHienTai = new Date();
+        const ngayDauThang = new Date(ngayHienTai.getFullYear(), ngayHienTai.getMonth(), 1);
+        const startDateString = ngayDauThang.toISOString().split('T')[0];
+        const endDateString = ngayHienTai.toISOString().split('T')[0];
+        fetchStatistic(startDateString, endDateString).then();
+
+    });
+
+    function formatNumberWithCommas(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    const fetchStatistic = async (startDate, endDate) => {
+        try {
+
+            const res = await fetch(`http://localhost:8080/statistic/getOrderStatistic?startDate=${startDate}&endDate=${endDate}`);
+            const data = await res.json();
+
+            const pending = document.getElementById("pending");
+            const preparing = document.getElementById("preparing");
+            const shipping = document.getElementById("shipping");
+            const completed = document.getElementById("completed");
+            const canceled = document.getElementById("canceled");
+
+            const money = document.getElementById("money");
+            pending.innerHTML = formatNumberWithCommas(data.orders.PENDING) + "";
+            preparing.innerHTML = formatNumberWithCommas(data.orders.PREPARING) + "";
+            shipping.innerHTML = formatNumberWithCommas(data.orders.SHIPPING) + "";
+            completed.innerHTML = formatNumberWithCommas(data.orders.COMPLETED) + "";
+            canceled.innerHTML = formatNumberWithCommas(data.orders.CANCELED) + "";
+
+            money.innerHTML = formatNumberWithCommas(data.money) + " VND";
+
+        } catch (e) {
+
+        }
+    }
+
+    const fetchD = async () => {
+        try {
+            var startDateInput = document.getElementById('start-date');
+            var endDateInput = document.getElementById('end-date');
+
+            var startDate = new Date(startDateInput.value);
+            var endDate = new Date(endDateInput.value);
+
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime()) || startDate > endDate) {
+                alert('Khoảng thời gian không hợp lệ!');
+                return;
+            }
+
+            var startDateString = startDate.toISOString().split('T')[0];
+            var endDateString = endDate.toISOString().split('T')[0];
+
+            fetchStatistic(startDateString, endDateString).then();
+        } catch (e) {
+
+        }
+    }
+
+    const handleChangeStatus=async(id,status)=>{
+        try{
+            const res=await fetch("http://localhost:8080/bill",{
+                method:"PUT",
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify({
+                    id:id,
+                    status:status
+                })
+            })
+            if(res.status===200){
+
+                window.location.reload();
+            }else{
+                const error = await res.json();
+                alert(error.message);
+            }
+        }
+        catch (e) {
+            alert("Có lỗi xảy ra! Thử lại sau");
+
+        }
+    }
+</script>
+</body>
+
+</html>

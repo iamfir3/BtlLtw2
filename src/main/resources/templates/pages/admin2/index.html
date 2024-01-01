@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Page</title>
+  <link href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap-grid.min.css"
+    integrity="sha512-ZuRTqfQ3jNAKvJskDAU/hxbX1w25g41bANOVd1Co6GahIe2XjM6uVZ9dh0Nt3KFCOA061amfF2VeL60aJXdwwQ=="
+    crossorigin="anonymous" referrerpolicy="Zno-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+    rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/styles/style.css" />
+  <link rel="stylesheet" href="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/styles/toast.css" />
+</head>
+
+<body>
+  <!-- toast -->
+  <div id="toast"></div>
+  <!-- body -->
+  <section id="sidebar">
+    <!-- Logo brand -->
+    <a href="./index.html" class="brand">
+      <!-- <i class="bx bxs-smile"></i> -->
+      <i class='bx bxs-user-rectangle'></i>
+      <span class="text">Admin Page</span>
+    </a>
+    <!-- Dashboard -->
+    <ul class="side-menu top">
+      <li class="active">
+        <a href="./index.html">
+          <i class="bx bxs-dashboard"></i>
+          <span class="text">Dashboard</span>
+        </a>
+      </li>
+      <!-- Product -->
+      <li id="side-menu__product">
+        <a href="product_admin.html">
+          <i class="bx bxs-shopping-bag-alt"></i>
+          <span class="text">Product</span>
+        </a>
+      </li>
+      <!-- Bill -->
+      <li id="side-menu__product">
+        <a href="bill_admin.html">
+          <i class='bx bxs-notepad'></i>
+          <span class="text">Bill</span>
+        </a>
+      </li>
+      <!-- <li>
+          <a href="#">
+            <i class="bx bxs-doughnut-chart"></i>
+            <span class="text">Analytics</span>
+          </a>
+        </li> -->
+    </ul>
+    <ul class="side-menu">
+      <li>
+        <a href="#">
+          <i class="bx bxs-cog"></i>
+          <span class="text">Settings</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" class="logout">
+          <i class="bx bxs-log-out-circle"></i>
+          <span class="text">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section id="content">
+    <nav>
+      <i class="bx bx-menu"></i>
+      <a href="#" class="nav-link">Categories</a>
+      <form action="#">
+        <div class="form-input">
+          <input type="search" placeholder="Search..." />
+          <button type="submit" class="search-btn">
+            <i class="bx bx-search"></i>
+          </button>
+        </div>
+      </form>
+      <a href="#" class="profile">
+        <img src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/img/user.jpg" />
+      </a>
+    </nav>
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Dashboard</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a href="#">Dashboard</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a class="active" href="#">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <ul id="box-info__dashboard" class="box-info">
+        <li>
+          <i class="bx bxs-calendar-check"></i>
+          <span class="text">
+            <h3>1020</h3>
+            <p>New Order</p>
+          </span>
+        </li>
+        <li>
+          <i class="bx bxs-group"></i>
+          <span class="text">
+            <h3>2834</h3>
+            <p>Visitors</p>
+          </span>
+        </li>
+        <li>
+          <i class="bx bxs-dollar-circle"></i>
+          <span class="text">
+            <h3>$2543</h3>
+            <p>Total Sales</p>
+          </span>
+        </li>
+      </ul>
+
+      <div class="table-data">
+        <div class="order table-container">
+          <div class="head">
+            <h3>Recent Orders</h3>
+            <span class="head-icon">
+              <a href="#"><i class="bx bx-search"></i></a>
+            </span>
+            <span class="head-icon">
+              <a href="#"><i class="bx bx-filter"></i></a>
+            </span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Date Order</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <img src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/img/user.jpg" />
+                  <p>User name</p>
+                </td>
+                <td>dd-mm-yy</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="" />
+                  <p>User name</p>
+                </td>
+                <td>dd/mm/yy</td>
+                <td><span class="status pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/img/user.jpg" />
+                  <p>User name</p>
+                </td>
+                <td>dd/mm/yy</td>
+                <td><span class="status process">Process</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/img/user.jpg" />
+                  <p>User name</p>
+                </td>
+                <td>dd/mm/yy</td>
+                <td><span class="status pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <img src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/img/user.jpg" />
+                  <p>User name</p>
+                </td>
+                <td>dd/mm/yy</td>
+                <td><span class="status completed">Completed</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </section>
+  <script src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/scripts/script.js"></script>
+  <script src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/scripts/fix_script.js"></script>
+  <script type="module" src="../../../../../../../Zalo%20Received%20Files/admin_pageV3/admin_page/scripts/toast.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>

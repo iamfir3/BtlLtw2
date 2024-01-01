@@ -20,6 +20,7 @@ public class ItemBill {
 
 	private int amount;
 	private int price;
+	private boolean isVoted;
 
 	@ManyToOne
 	private Book book;

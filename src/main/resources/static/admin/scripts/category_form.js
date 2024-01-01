@@ -75,23 +75,37 @@ function handleViewAction() {
 
 // Submit Form
 async function handleSubmitCategoryForm(e) {
+  e.preventDefault();
   const inputValue=document.getElementById("categoryName").value;
   try{
-    const res=await fetch("http://")
-  }
-  catch(e){
+    const res=await fetch("http://localhost:8080/category",{
+      method:"POST",
+      headers:{
+        "content-type":'application/json'
+      },
+      body:JSON.stringify({
+        name:inputValue
+      })
+    })
+    if(res.status===200){
+      document.getElementById("categoryName").value="";
+      Toast({
+        title: 'Thành công',
+        message: 'Đã thêm danh mục ' +inputValue,
+        type: 'success',
+        duration: 3000,
+      });
+    }
 
   }
-  Toast({
-    title: 'Thành công',
-    message: 'Đúng rồi. "Đầu tiên" là thứ quan trọng!',
-    type: 'success',
-    duration: 3000,
-  });
-  Toast({
-    title: 'Cảnh báo',
-    message: 'Đây là những thông tin tới bạn.',
-    type: 'warning',
-    duration: 3000,
-  });
+  catch(e){
+    Toast({
+      title: 'Cảnh báo',
+      message: 'Đây là những thông tin tới bạn.',
+      type: 'warning',
+      duration: 3000,
+    });
+  }
+
+
 }

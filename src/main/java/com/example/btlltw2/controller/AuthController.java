@@ -11,10 +11,7 @@ import com.example.btlltw2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("auth")
@@ -53,6 +50,17 @@ public class AuthController {
         cartEntity.setUser(user1);
 
         userRepository.save(user1);
+        return ResponseEntity.ok("ok");
+    }
+
+    @PutMapping("/changePassword")
+    private ResponseEntity<?> changePassword(@RequestBody RegisterCommand registerCommand){
+        User user=userRepository.findById(registerCommand.getUserId()).orElse(null);
+        if(!user.getPassword().equals(registerCommand.getPassword())){
+            throw new ApiException(HttpStatus.BAD_REQUEST,"Sai mật khẩu!");
+        }
+        user.setPassword(registerCommand.getNewPassword());
+        userRepository.save(user);
         return ResponseEntity.ok("ok");
     }
 }

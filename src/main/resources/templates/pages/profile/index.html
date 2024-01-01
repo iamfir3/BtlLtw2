@@ -1,0 +1,139 @@
+<!--Website: wwww.codingdung.com-->
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{common ::head}">
+</head>
+<head>
+    <link rel="stylesheet" href="/profile/style.css"/>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+</head>
+
+<body class=" flex justify-center w-full">
+<div class="max-w-[1440px] w-full">
+    <header th:replace="~{common ::header}"></header>
+    <div class="container light-style flex-grow-1 container-p-y">
+        <div class="card overflow-hidden">
+            <div class="row no-gutters row-bordered row-border-light">
+                <div class="col-md-3 pt-0">
+                    <div th:replace="~{common ::userTab(activeDiv='profile')}" class="list-group list-group-flush account-settings-links">
+                        <a
+                                class="list-group-item list-group-item-action active"
+                                data-toggle="list"
+                                href="/profile?id"
+                        >General</a
+                        >
+                        <a
+                                class="list-group-item list-group-item-action"
+                                data-toggle="list"
+                                href="#account-change-password"
+                        >Change password</a
+                        >
+                        <a
+                                class="list-group-item list-group-item-action"
+                                data-toggle="list"
+                                href="#account-orders"
+                        >Your orders</a
+                        >
+                        <a
+                                class="list-group-item list-group-item-action"
+                                data-toggle="list"
+                                href="#account-products"
+                        >Your lists</a
+                        >
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show" id="account-general">
+                            <div class="container-xl px-4 mt-4">
+                                <hr class="mt-0 mb-4"/>
+                                <div class="row">
+                                    <div class="col-xl-4">
+                                        <div class="mb-4 mb-xl-0">
+                                            <div class="" style="font-size: 20px">Avatar</div>
+                                            <div class="card-body text-center"
+                                                 style="display: flex;flex-direction: column;align-items: center">
+                                                <img
+                                                        class="img-account-profile rounded-circle mb-2"
+                                                        src="/profile/user.jpg"
+                                                        alt=""
+                                                />
+                                                <label class="btn btn-outline-primary">
+                                                    Upload new photo
+                                                    <input
+                                                            type="file"
+                                                            class="account-settings-fileinput"
+                                                    />
+                                                </label>
+                                                &nbsp;
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-8">
+                                        <div class="mb-4">
+                                            <div class="" style="font-size: 20px">
+                                                Account Details
+                                            </div>
+                                            <div class="card-body">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label class="small mb-1" for="inputUsername"
+                                                        >Username</label
+                                                        >
+                                                        <input
+                                                                class="form-control"
+                                                                id="inputUsername"
+                                                                type="text"
+                                                                placeholder="username"
+                                                                th:value="${user.name}"
+                                                        />
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="small mb-1" for="inputEmailAddress"
+                                                        >Email</label
+                                                        >
+                                                        <input
+                                                                class="form-control"
+                                                                id="inputEmailAddress"
+                                                                type="email"
+                                                                placeholder="email"
+                                                                th:value="${user.email}"
+                                                        />
+                                                    </div>
+
+                                                    <label class="btn btn-outline-primary">
+                                                        Save change
+                                                    </label>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-[70px]">
+        <div th:replace="common ::footer"></div>
+    </div>
+</div>
+
+<script
+        data-cfasync="false"
+        src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+></script>
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"></script>
+<script src="/js/common.js"></script>
+
+</body>
+</html>

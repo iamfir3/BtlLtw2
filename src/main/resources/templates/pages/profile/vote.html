@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{common ::head}">
+</head>
+  <head>
+    <link rel="stylesheet" href="/profile/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body class=" flex justify-center w-full">
+  <div class="max-w-[1440px] w-full">
+    <header th:replace="~{common ::header}"></header>
+    <div class="container light-style flex-grow-1 container-p-y">
+      <div class="card overflow-hidden">
+        <div class="row no-gutters row-bordered row-border-light">
+          <div class="col-md-3 pt-0">
+            <div th:replace="~{common ::userTab(activeDiv='vote')}" class="list-group list-group-flush account-settings-links">
+
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="tab-content">
+              <div class="tab-pane fade active show" id="account-general">
+                <div class="table-data">
+                  <div class="order" style="margin-left: 26px">
+                    <div class="head">
+                      <h3>Books</h3>
+
+                    </div>
+                    <table>
+                      <thead>
+                      <tr>
+                        <th>Book's Title</th>
+                        <th>Point</th>
+                        <th>Comment</th>
+
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr th:each="item : ${items}">
+                        <td>
+                          <p th:text="${item.book.title}"></p>
+                        </td>
+                        <td>
+                          <input type="number" th:id="${item.id+'-point'}" name="quantity" min="1" max="100" step="1" value="1" onblur="limitMaxValue(this)">
+                        </td>
+                        <td>
+                          <input type="text" th:id="${item.id+'-comment'}">
+                        </td>
+                        <td>
+                          <button type="submit" class="btn submit-btn" id="addProductBtn" th:onclick="|voteBook(${item.id})|">
+                            <span class="btn-icon"><i class="bx bx-plus"></i></span>
+                            <a href="#" class="btn-label">Post comment</a>
+                          </button>
+                        </td>
+
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-[70px]">
+      <div th:replace="common ::footer"></div>
+    </div>
+  </div>
+
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"></script>
+  <script src="/js/common.js"></script>
+  <script>
+    function limitMaxValue(element) {
+      var max = 5;
+      var value = parseInt(element.value, 10);
+
+      if (isNaN(value) || value < 1) {
+        element.value = 1;
+      } else if (value > max) {
+        element.value = max;
+      }
+    }
+
+    const voteBook=async(id)=>{
+      try{
+        const point=document.getElementById(id+'-point').value;
+        const comment=document.getElementById(id+'-comment').value;
+
+        const res=await fetch("http://localhost:8080/bill/vote",{
+          method:"POST",
+          headers:{
+            'content-type':'application/json'
+          },
+          body:JSON.stringify({
+            userId:localStorage.getItem("userId"),
+            id:id,
+            comment:comment,
+            point:point
+          })
+        })
+        if(res.status===200){
+          alert("Đã đánh giá sản phẩm thành công");
+          window.location.reload();
+        }else{
+          const error=await res.json();
+          alert(error.message);
+
+        }
+      }
+      catch (e) {
+        alert("Có lỗi xảy ra! Thử lại sau");
+
+      }
+    }
+  </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+.red-color,
+.red-color:hover {
+  color: var(--red) !important;
+}
+
+.yellow-color,
+.yellow-color:hover {
+  color: var(--yellow) !important;
+}
+
+.blue-color,
+.blue-color:hover {
+  color: var(--blue) !important;
+}
+
+.orange-color,
+.orange-color:hover {
+  color: var(--orange) !important;
+}
+
+.green-color,
+.green-color:hover {
+  color: var(--green) !important;
+}
+
+.purple-color,
+.purple-color:hover {
+  color: var(--purple) !important;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--light);
+  background-color: var(--blue);
+  border-radius: 20px;
+  padding: 8px 12px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn .btn-icon {
+  display: flex;
+  color: inherit !important;
+  color: var(--light) !important;
+  font-size: 16px;
+  margin-right: 6px;
+}
+
+.btn .btn-label {
+  color: inherit !important;
+  font-size: 16px;
+  margin-right: 4px;
+}
+
+.btn:hover {
+  background-color: rgba(60, 145, 230, 0.85);
+}
+
+.btn:active {
+  transform: scale(0.98);
+  background-color: var(--blue);
+}
+
+/* Table */
+
+#content .table-data table .action ul {
+  width: max-content;
+}
+
+#content .table-data table .action-list>.action-item {
+  position: relative;
+}
+
+#content .table-data table .action-list>.action-item:first-of-type>a {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+#content .table-data table .action-list>.action-item:last-of-type>a {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}

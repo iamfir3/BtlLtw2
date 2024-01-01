@@ -1,0 +1,98 @@
+/* Table */
+#content main .table-data .head {
+  display: flex;
+  align-items: center;
+  grid-gap: 16px;
+  margin-bottom: 24px;
+}
+
+#content main .table-data .head h3 {
+  margin-right: auto;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+#content main .table-data .head .head-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 24px;
+  border-radius: 999px;
+  width: 42px;
+  height: 42px;
+  transition: all 0.2s ease;
+}
+
+#content main .table-data .head .head-icon:hover {
+  background-color: var(--grey);
+}
+
+#content main .table-data .table-container {
+  flex-grow: 1;
+  flex-basis: 500px;
+}
+
+#content main .table-data .table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#content main .table-data .table-container table th {
+  padding-bottom: 12px;
+  font-size: 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--grey);
+}
+
+#content main .table-data .table-container table td {
+  padding: 16px 0;
+}
+
+#content main .table-data .table-container table tr td:first-child {
+  display: flex;
+  align-items: center;
+  grid-gap: 12px;
+  padding-left: 6px;
+}
+
+#content main .table-data .table-container table td img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#content main .table-data .table-container table tbody tr:hover {
+  background: var(--grey);
+}
+
+#content main .table-data .table-container table tr td .status {
+  font-size: 10px;
+  padding: 6px 16px;
+  color: var(--light);
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+/* Action */
+#form-manage.add-category #category-form #saveCategoryBtn {
+  display: none;
+}
+
+#form-manage.add-category .table-data .table-product {
+  display: none;
+}
+
+#form-manage.edit-category .table-data .table-product {
+  display: none;
+}
+
+#form-manage.edit-category #category-form #addCategoryBtn {
+  display: none;
+}
+
+#form-manage.view-category #category-form #addCategoryBtn,
+#form-manage.view-category #category-form #saveCategoryBtn {
+  display: none;
+}

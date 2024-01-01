@@ -41,11 +41,11 @@
             <p class="text-center text-[32px] font-[600]">Cart Totals</p>
             <div class="flex gap-[62px] items-center justify-between mt-[61px]">
                 <p class="font-[500]">Subtotal</p>
-                <p th:text="'$'+${subprice}" class="font-[400] text-[#9f9f9f]"></p>
+                <p th:text="${#numbers.formatDecimal(subprice,  0, 'COMMA', 0, 'POINT')} + ' VND'"  class="font-[400] text-[#9f9f9f]"></p>
             </div>
             <div class="flex gap-[62px] items-center justify-between mt-[31px]">
                 <p class="font-[500]">Total</p>
-                <p th:text="'$'+${subprice}" class="text-[#B88E2F] text-[20px] font-[500]"></p>
+                <p th:text="${#numbers.formatDecimal(subprice,  0, 'COMMA', 0, 'POINT')} + ' VND'" class="text-[#B88E2F] text-[20px] font-[500]"></p>
             </div>
 
             <div class="px-[59px] py-[14px] text-[19px] text-black font-[400] rounded-[15px] border-[1px] border-[#000] w-[222px] mt-[42px]"

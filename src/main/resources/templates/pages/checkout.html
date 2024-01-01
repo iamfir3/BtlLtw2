@@ -81,7 +81,7 @@
                         <p class="text-[12px] font-[500]">x</p>
                         <p class="text-[12px] font-[500]" th:text="${cartBook.amount}"></p>
                     </div>
-                    <p class="text-[16px] font-[300]" id="price" th:text="${cartBook.price}*${cartBook.amount}"></p>
+                    <p class="text-[16px] font-[300]" id="price"   th:text="${#numbers.formatDecimal(cartBook.price*cartBook.amount,  0, 'COMMA', 0, 'POINT')} + ' VND'"  ></p>
                 </div>
             </div>
 
@@ -89,13 +89,13 @@
                     class="flex justify-between text-[16px] font-[400] mt-[22px] items-center"
             >
                 <p>Subtotal</p>
-                <p th:text="${subprice}"></p>
+                <p   th:text="${#numbers.formatDecimal(subprice,  0, 'COMMA', 0, 'POINT')} + ' VND'" ></p>
             </div>
             <div
                     class="flex justify-between text-[16px] font-[400] mt-[22px] items-center pb-[33px]"
             >
                 <p>Total</p>
-                <p class="text-[24px] text-[#B88E2F] font-[700]" th:text="${subprice}"></p>
+                <p class="text-[24px] text-[#B88E2F] font-[700]"   th:text="${#numbers.formatDecimal(subprice,  0, 'COMMA', 0, 'POINT')} + ' VND'" ></p>
             </div>
 
             <div class="pt-[22px] border-t-[1px] border-t-[#d9d9d9]">

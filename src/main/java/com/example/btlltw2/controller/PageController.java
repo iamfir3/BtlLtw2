@@ -36,37 +36,45 @@ public class PageController {
     @Autowired
     private BillRepository billRepository;
 
+    @Autowired
+    private ItemBillRepository itemBillRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
     @GetMapping("/")
-    public String home(Model model){
-        List<Book> bookList=bookRepository.findAll().stream().limit(8).collect(Collectors.toList());
-        model.addAttribute("books",bookList);
+    public String home(Model model) {
+        List<Book> bookList = bookRepository.findAll().stream().limit(8).collect(Collectors.toList());
+        model.addAttribute("books", bookList);
         return "pages/home";
     }
 
     @GetMapping("/detail")
-    public String detail(Model model, @RequestParam("id") Long id){
-        Optional<Book> book=bookRepository.findById(id);
-        List<Book> bookList=bookRepository.findAll().stream().limit(4).collect(Collectors.toList());
-        model.addAttribute("book",book.get());
-        model.addAttribute("books",bookList);
+    public String detail(Model model, @RequestParam("id") Long id) {
+        Optional<Book> book = bookRepository.findById(id);
+        List<Book> bookList = bookRepository.findAll().stream().limit(4).collect(Collectors.toList());
+        List<Comment> comments=commentRepository.findAllByBook(book.get());
+        model.addAttribute("book", book.get());
+        model.addAttribute("books", bookList);
+        model.addAttribute("comments",comments);
         return "pages/detail";
     }
 
     @GetMapping("/list")
-    public String list (Model model){
-        List<Book> bookList=bookRepository.findAll();
-        model.addAttribute("books",bookList);
+    public String list(Model model) {
+        List<Book> bookList = bookRepository.findAll();
+        model.addAttribute("books", bookList);
         return "pages/list";
     }
 
     @GetMapping("/cart")
-    public String cart (Model model, @RequestParam("id") Long id){
-        Optional<CartEntity> cart=cartRepository.findByUserId(id);
-        List<CartBook> cartBooks=cartBookRepository.findAllByCartId(cart.get().getId());
-        List<GetCartResponse> getCartResponses=new ArrayList<>();
-        AtomicReference<Float> subprice= new AtomicReference<>(0f);
+    public String cart(Model model, @RequestParam("id") Long id) {
+        Optional<CartEntity> cart = cartRepository.findByUserId(id);
+        List<CartBook> cartBooks = cartBookRepository.findAllByCartId(cart.get().getId());
+        List<GetCartResponse> getCartResponses = new ArrayList<>();
+        AtomicReference<Float> subprice = new AtomicReference<>(0f);
         cartBooks.forEach(cartBook -> {
-            GetCartResponse getCartResponse= GetCartResponse.builder()
+            GetCartResponse getCartResponse = GetCartResponse.builder()
                     .amount(cartBook.getAmount())
                     .title(cartBook.getBook().getTitle())
                     .image(cartBook.getBook().getImage())
@@ -77,25 +85,25 @@ public class PageController {
 
             getCartResponses.add(getCartResponse);
         });
-        model.addAttribute("cartBooks",getCartResponses);
-        model.addAttribute("subprice",subprice);
-        model.addAttribute("cart",cart.get());
+        model.addAttribute("cartBooks", getCartResponses);
+        model.addAttribute("subprice", subprice.get());
+        model.addAttribute("cart", cart.get());
         return "pages/Cart";
     }
 
     @GetMapping("/login")
-    private String login (Model model){
+    private String login(Model model) {
         return "pages/login";
     }
 
     @GetMapping("/payment")
-    private String payment (Model model,@RequestParam("id") Long id){
-        Optional<CartEntity> cart=cartRepository.findByUserId(id);
-        List<CartBook> cartBooks=cartBookRepository.findAllByCartId(cart.get().getId());
-        List<GetCartResponse> getCartResponses=new ArrayList<>();
-        AtomicReference<Float> subprice= new AtomicReference<>(0f);
+    private String payment(Model model, @RequestParam("id") Long id) {
+        Optional<CartEntity> cart = cartRepository.findByUserId(id);
+        List<CartBook> cartBooks = cartBookRepository.findAllByCartId(cart.get().getId());
+        List<GetCartResponse> getCartResponses = new ArrayList<>();
+        AtomicReference<Float> subprice = new AtomicReference<>(0f);
         cartBooks.forEach(cartBook -> {
-            GetCartResponse getCartResponse= GetCartResponse.builder()
+            GetCartResponse getCartResponse = GetCartResponse.builder()
                     .amount(cartBook.getAmount())
                     .title(cartBook.getBook().getTitle())
                     .image(cartBook.getBook().getImage())
@@ -106,62 +114,120 @@ public class PageController {
 
             getCartResponses.add(getCartResponse);
         });
-        model.addAttribute("cartBooks",getCartResponses);
-        model.addAttribute("subprice",subprice);
-        model.addAttribute("cart",cart.get());
+        model.addAttribute("cartBooks", getCartResponses);
+        model.addAttribute("subprice", subprice.get());
+        model.addAttribute("cart", cart.get());
         return "pages/checkout";
     }
 
     @GetMapping("/signup")
-    private String signup (Model model){
+    private String signup(Model model) {
         return "pages/SignUp";
     }
 
     @GetMapping("/admin")
-    private String admin (Model model){
-        List<Bill> billList=billRepository.findTop10ByOrderByPaymentTimeDesc();
-        model.addAttribute("bills",billList);
+    private String admin(Model model) {
+        List<Bill> billList = billRepository.findTop10ByOrderByPaymentTimeDesc();
+        model.addAttribute("bills", billList);
         return "pages/admin/index";
     }
+
+    @GetMapping("/bill_admin")
+    private String bill(Model model) {
+        List<Bill> billList = billRepository.findTop10ByOrderByPaymentTimeDesc();
+        model.addAttribute("bills", billList);
+        return "pages/admin2/bill_admin";
+    }
+
+    @GetMapping("/bill_detail")
+    private String billDetail(Model model,@RequestParam Long billId) {
+        Bill bill = billRepository.findById(billId).orElse(null);
+        model.addAttribute("bill", bill);
+        return "pages/admin2/bill_detail";
+    }
+
     @GetMapping("/product_admin")
-    private String product_admin (Model model){
-        List<Category> categories=categoryRepository.findAll();
-        model.addAttribute("categories",categories);
-        List<Book> books=bookRepository.findAll();
-        model.addAttribute("books",books);
+    private String product_admin(Model model) {
+        List<Category> categories = categoryRepository.findAll();
+        model.addAttribute("categories", categories);
+        List<Book> books = bookRepository.findAll();
+        model.addAttribute("books", books);
         return "pages/admin/product_admin";
     }
+
     @GetMapping("/product_form")
     private String product_form(@RequestParam String action, @RequestParam Long id, Model model) {
-        if ("view-product".equals(action) || "edit-product".equals(action)) {
-
+        if ("view-product".equals(action)) {
             Book book = bookRepository.findById(id).orElse(null);
             model.addAttribute("book", book);
-
-
-            return "pages/admin/product_form";
-        } else {
-
-            return "redirect:/admin";
+            model.addAttribute("scrum", book.getTitle());
+            return "pages/admin/view_product_form";
         }
+        if ("edit-product".equals(action)) {
+            Book book = bookRepository.findById(id).orElse(null);
+            model.addAttribute("book", book);
+            model.addAttribute("scrum", book.getTitle());
+            return "pages/admin/edit_product_form";
+        }
+        if ("add-product".equals(action)) {
+            model.addAttribute("scrum", "Add product");
+            List<Category> categories=categoryRepository.findAll();
+            model.addAttribute("categories",categories);
+            return "pages/admin/product_form";
+        }
+        return "redirect:/admin";
     }
+
     @GetMapping("/category_form")
     private String category_form(@RequestParam String action, @RequestParam Long id, Model model) {
         if ("view-category".equals(action) || "edit-category".equals(action)) {
             Category category = categoryRepository.findById(id).orElse(null);
             model.addAttribute("category", category);
-            if("view-category".equals(action)){
-                model.addAttribute("scrum",category.getName());
-            }
-            if("edit-category".equals(action)){
-                model.addAttribute("scrum",category.getName());
-            }
+            model.addAttribute("scrum", category.getName());
             return "pages/admin/category_form";
-        } else if ("add-category".equals(action) ){
-            model.addAttribute("scrum","Add category");
+        } else if ("add-category".equals(action)) {
+            model.addAttribute("scrum", "Add category");
             return "pages/admin/add_category_form";
         }
         return "redirect:/admin";
     }
 
+    @GetMapping("/profile")
+    private String profile(Model model,@RequestParam Long id){
+        User user=userRepository.findById(id).orElse(null);
+        model.addAttribute("user",user);
+        return "pages/profile/index";
+    }
+
+    @GetMapping("/changePassword")
+    private String changePassword(Model model,@RequestParam Long id){
+        User user=userRepository.findById(id).orElse(null);
+        model.addAttribute("user",user);
+        return "pages/profile/changepassword";
+    }
+
+    @GetMapping("/userOrders")
+    private String userOrders(Model model,@RequestParam Long id){
+        User user=userRepository.findById(id).orElse(null);
+        model.addAttribute("user",user);
+        List<Bill> billList=billRepository.findAllByUser(user);
+        model.addAttribute("bills",billList);
+        return "pages/profile/orders";
+    }
+
+    @GetMapping("/userLists")
+    private String userLists(Model model,@RequestParam Long id){
+        User user=userRepository.findById(id).orElse(null);
+        model.addAttribute("user",user);
+        return "pages/profile/lists";
+    }
+
+
+    @GetMapping("/voteBook")
+    private String voteBook(Model model,@RequestParam Long id){
+        User user=userRepository.findById(id).orElse(null);
+        List<ItemBill> itemBillList = itemBillRepository.findByBill_UserAndIsVotedFalse(user);
+        model.addAttribute("items",itemBillList );
+        return "pages/profile/vote";
+    }
 }

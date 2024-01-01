@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/details.css">
 </head>
 <body class=" flex justify-center w-full">
-<div class="max-w-[1440px] w-full">
+<div class="max-w-[1460px] w-full">
     <header th:replace="~{common ::header}"></header>
     <div class="w-full h-[100px] bg-[#F9F1E7] py-[38px] pl-[100px] flex gap-[24px] items-center">
         <div class="flex items-center gap-[14px] text-[#9f9f9f]">
@@ -30,7 +30,7 @@
             </div>
             <div class="text-details">
                 <p class="prd-name" th:text="${book.title}"></p>
-                <p class="prd-price" th:text=" '$'+${book.price}"></p>
+                <p class="prd-price" th:text="${#numbers.formatDecimal(book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'" ></p>
                 <div class="view-rate">
                     <div class="star-rate">
                         <img
@@ -48,7 +48,7 @@
                         />
                         <img class="star-icon-half" src="/assets/carbon-star-half.png"/>
                     </div>
-                    <p class="customer-review">5 Customer Review</p>
+                    <p class="customer-review" th:text="${comments.size()+' Customer Reviews'}"></p>
                 </div>
                 <div class="desc-group">
                     <p class="desc" th:text="${book.des}">
@@ -77,7 +77,19 @@
     </div>
     <div class="w-full pt-[48px] border-t-[1px] border-t-[#D9D9D9] min-h-[300px]">
         <p class="text-[24px] font-[500] text-center">Reviews</p>
+        <div>
+            <div  th:each="comment :${comments}" style="display: flex;gap: 10px;margin: 15px 0">
 
+                <div>
+                    <img src="/profile/user.jpg" style="width: 60px;height: 60px;border-radius: 50%;object-fit: cover" alt="cascsa">
+                </div>
+                <div>
+                    <p th:text="${comment.user.name}" style="font-weight: 500"></p>
+                    <p th:text="${#dates.format(comment.createdAt, 'dd-MM-yyyy')}"></p>
+                    <p th:text="${comment.comment}" style="margin-top: 12px"></p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="mt-[55px] border-t-[1px] border-t-[#D9D9D9] pt-[38px]">
         <p class="text-center text-[36px] font-[500] mb-[26px]"> Related Products</p>

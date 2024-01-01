@@ -35,7 +35,7 @@
         </div>
     </form>
     <a href="#" class="profile">
-        <img src="img/user.jpg" />
+        <img src="/admin/img/user.jpg" alt="cáccsa"/>
     </a>
 </nav>
 
@@ -57,16 +57,22 @@
                 <span class="text">Product</span>
             </a>
         </li>
+        <li id="side-menu__bill" th:class="${activeLi == 'bill' ? 'active' : ''}">
+            <a href="/bill_admin">
+                <i class='bx bxs-notepad'></i>
+                <span class="text">Bill</span>
+            </a>
+        </li>
     </ul>
     <ul class="side-menu">
         <li th:class="${activeLi == 'settings' ? 'active' : ''}">
-            <a href="#">
-                <i class="bx bxs-cog"></i>
-                <span class="text">Settings</span>
+            <a href="/">
+                <i class='bx bxs-home' ></i>
+                <span class="text">Go to homepage</span>
             </a>
         </li>
         <li th:class="${activeLi == 'logout' ? 'active' : ''}">
-            <a href="#" class="logout">
+            <a href="/" onmousedown="hadnleGoLogOut()" class="logout">
                 <i class="bx bxs-log-out-circle"></i>
                 <span class="text">Logout</span>
             </a>

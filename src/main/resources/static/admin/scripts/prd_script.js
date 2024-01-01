@@ -1,3 +1,5 @@
+import Toast from "./toast";
+
 class Category {
   constructor(CategoryName) {
     this.CategoryName = CategoryName;
@@ -132,37 +134,90 @@ document.getElementById('addProduct').addEventListener('click', (e) => {
 
 categoryUpdate();
 
-function addProduct() {
-  const CategoryName = document.getElementById('SelectCategory').value;
-  var ProductName = document.getElementById('ProductName').value.trim();
-  var ProductPrice = document.getElementById('ProductPrice').value.trim();
-  var ProductStock = document.getElementById('ProductStock').value.trim();
-  var ProductAuthor = document.getElementById('ProductAuthor').value.trim();
+// function addProduct() {
+//   const CategoryName = document.getElementById('SelectCategory').value;
+//   var ProductName = document.getElementById('ProductName').value.trim();
+//   var ProductPrice = document.getElementById('ProductPrice').value.trim();
+//   var ProductStock = document.getElementById('ProductStock').value.trim();
+//   var ProductAuthor = document.getElementById('ProductAuthor').value.trim();
+//
+//   if (
+//     CategoryName === '' ||
+//     ProductName === '' ||
+//     ProductPrice <= 0 ||
+//     ProductStock <= 0 ||
+//     ProductAuthor === ''
+//   ) {
+//     alert('!!!!!');
+//     return;
+//   }
+//
+//   const category = CategoryList.find(
+//     (category) => category.CategoryName === CategoryName
+//   );
+//
+//   const product = new Product(ProductName, ProductPrice, ProductStock);
+//
+//   category.addProduct(product);
+//   categoryUpdate();
+//
+//   ProductName = document.getElementById('ProductName').value = '';
+//   ProductPrice = document.getElementById('ProductPrice').value = '';
+//   ProductStock = document.getElementById('ProductStock').value = '';
+//   ProductAuthor = document.getElementById('ProductAuthor').value = '';
+// }
 
-  if (
-    CategoryName === '' ||
-    ProductName === '' ||
-    ProductPrice <= 0 ||
-    ProductStock <= 0 ||
-    ProductAuthor === ''
-  ) {
-    alert('!!!!!');
-    return;
+const addProduct=async()=>{
+  const category=document.getElementById("productCategory").value;
+  const title=document.getElementById("productTitle").value;
+  const author=document.getElementById("productAuthor").value;
+  const date=document.getElementById("productDate").value;
+  const quantity=document.getElementById("productQuantity").value;
+  const price=document.getElementById("productPrice").value;
+  const image=document.getElementById("productImage").files[0];
+  const description=document.getElementById("productDescription").value;
+
+  try{
+    const form=new FormData();
+    form.append("categoryId",category);
+    form.append("title",title);
+    form.append("author",author);
+    form.append("date",date);
+    form.append("quantity",quantity);
+    form.append("price",price);
+    form.append("file",image);
+    form.append("des",description);
+    const res = await fetch("http://localhost:8080/addBook", {
+      method: "POST",
+      body: form,
+    });
+
+    if(res.status===200){
+      Toast({
+        title: 'Thành công',
+        message: 'Đã thêm sản phẩm ' +title,
+        type: 'success',
+        duration: 3000,
+      });
+    }
+    else {
+      const error=await res.json();
+      Toast({
+        title: 'Cảnh báo',
+        message: error.message,
+        type: 'warning',
+        duration: 3000,
+      });
+    }
   }
-
-  const category = CategoryList.find(
-    (category) => category.CategoryName === CategoryName
-  );
-
-  const product = new Product(ProductName, ProductPrice, ProductStock);
-
-  category.addProduct(product);
-  categoryUpdate();
-
-  ProductName = document.getElementById('ProductName').value = '';
-  ProductPrice = document.getElementById('ProductPrice').value = '';
-  ProductStock = document.getElementById('ProductStock').value = '';
-  ProductAuthor = document.getElementById('ProductAuthor').value = '';
+  catch (e){
+    Toast({
+      title: 'Cảnh báo',
+      message: 'Có lỗi xảy ra! Thử lại sau.',
+      type: 'warning',
+      duration: 3000,
+    });
+  }
 }
 
 function deleteCategory(CategoryName) {

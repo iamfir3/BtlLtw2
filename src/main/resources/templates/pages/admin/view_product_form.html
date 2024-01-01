@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{commonAdmin ::headAdmin}">
+
+</head>
+<body>
+  <!-- toast -->
+  <div id="toast"></div>
+  <!-- body -->
+  <section th:replace="~{commonAdmin ::adminSidebar(activeLi='product')}"></section>
+  <section id="content">
+    <nav th:replace="~{commonAdmin ::adminNav}"></nav>
+
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Products</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a href="#">Dashboard</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a href="#">Product</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a class="active" href="#" th:text="${scrum}"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <section id="form-manage">
+        <!-- Category Form -->
+        <form id="category-form" action="" method=" POST" class="">
+          <header class="category-form__header col-12">
+            <div class="head">
+              <h3>Add Category</h3>
+            </div>
+          </header>
+          <!-- <hr> -->
+          <div class="category-form__main mt-3">
+            <div class="form-group">
+              <label class="form-label col-lg-4 col-md-4" for="categoryName">Category
+                Name</label>
+              <div class="input-wrapper col-lg-8 col-md-8">
+                <input required class="form-input" type="text" name="categoryName" id="categoryName"
+                  placeholder="Enter your Category Name" value="" />
+                <span class="input-line"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn submit-btn" id="addCategoryBtn">
+              <span class="btn-icon"><i class="bx bx-plus"></i></span>
+              <a href="#" class="btn-label">Add Category</a>
+            </button>
+          </div>
+        </form>
+
+        <!-- Product Form -->
+        <form id="product-form" action="" method="POST" class="" style="width: 60%">
+          <header class="product-form__header col-12">
+            <div class="head">
+              <h3>Add Product</h3>
+            </div>
+          </header>
+          <!-- <hr> -->
+          <div class="product-form__main col-12 mt-3">
+            <div class="row">
+              <div class="form-group col-lg-6 col-md-12">
+                <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Category Name:</span>
+                <p th:text="${book.category.getName()}"></p>
+              </div>
+              <div class="form-group col-lg-6 col-md-12">
+                <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Title:</span>
+                <p th:text="${book.title}"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-lg-6 col-md-12">
+                <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Author:</span>
+                <p th:text="${book.author}"></p>
+              </div>
+              <div class="form-group col-lg-6 col-md-12">
+                <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Release date:</span>
+                <p th:text="${#dates.format(book.day, 'dd/MM/yyyy')}"></p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-12">
+                <div class="form-group row">
+                  <label class="form-label col-lg-3">
+                    <span style="font-weight: 500">Image:</span>
+                  </label>
+                  <label class="form-label col-lg-9" >
+                    <img th:src="${book.image}" alt="dasd" style="width: 448px;height: 448px;object-fit: cover">
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+
+                <div class="row">
+                  <div class="form-group col-lg-12">
+                    <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Quantity:</span>
+                    <span th:text="${book.quantity}"></span>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-lg-12">
+                    <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Price:</span>
+                    <span th:text="${#numbers.formatDecimal(book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col col-lg-12 row" style="padding-right: 0;">
+                <span class="form-label col-lg-3 col-md-4" style="font-weight: 500">Description:</span>
+                <div class="input-wrapper col-lg-12" style="padding-right: 0;">
+                  <p style="margin-top: 10px" class="form-input" name="productDescription" id="productDescription" cols="30" rows="10" spellcheck="false" th:text="${book.des}"></p>
+                </div>
+                <span class="input-line"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-lg-12 mt-3">
+
+            <button type="submit" class="btn submit-btn" id="addProductBtn">
+              <span class="btn-icon"><i class="bx bx-plus"></i></span>
+              <a href="#" class="btn-label">Add Product</a>
+            </button>
+            <button type="submit" class="btn submit-btn" id="saveProductBtn">
+              <span class="btn-icon"><i class="bx bx-check"></i></span>
+              <a href="#" class="btn-label">Save</a>
+            </button>
+          </div>
+        </form>
+
+      </section>
+
+    </main>
+  </section>
+  <script src="/admin/scripts/script.js"></script>
+  <script src="/admin/scripts/product_admin.js"></script>
+  <script type="module" src="/admin/scripts/product_form.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script>
+
+  </script>
+</body>
+
+</html>

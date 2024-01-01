@@ -141,49 +141,102 @@ function handleUploadImage() {
 }
 
 // Submit form
-const productFormSubmitBtns = document.querySelectorAll(
-  '#product-form button.submit-btn'
-);
-const categoryFormSubmitBtns = document.querySelectorAll(
-  '#category-form button.submit-btn'
-);
+// const productFormSubmitBtns = document.querySelectorAll(
+//   '#product-form button.submit-btn'
+// );
+// const categoryFormSubmitBtns = document.querySelectorAll(
+//   '#category-form button.submit-btn'
+// );
+//
+// productFormSubmitBtns.forEach((submitBtn) => {
+//   submitBtn.addEventListener('click', handleSubmitProductForm);
+// });
+//
+// categoryFormSubmitBtns.forEach((submitBtn) => {
+//   submitBtn.addEventListener('click', handleSubmitCategoryForm);
+// });
+//
+// function handleSubmitProductForm(e) {
+//   e.preventDefault();
+//   Toast({
+//     title: 'Thông tin',
+//     message: 'Đây là những thông tin tới bạn.',
+//     type: 'info',
+//     duration: 3000,
+//   });
+//   Toast({
+//     title: 'Lỗi',
+//     message: 'Nạp lần đầu đi bạn ơi.',
+//     type: 'error',
+//     duration: 3000,
+//   });
+// }
+//
+// function handleSubmitCategoryForm(e) {
+//   e.preventDefault();
+//   Toast({
+//     title: 'Thành công',
+//     message: 'Đúng rồi. "Đầu tiên" là thứ quan trọng!',
+//     type: 'success',
+//     duration: 3000,
+//   });
+//   Toast({
+//     title: 'Cảnh báo',
+//     message: 'Đây là những thông tin tới bạn.',
+//     type: 'warning',
+//     duration: 3000,
+//   });
+// }
 
-productFormSubmitBtns.forEach((submitBtn) => {
-  submitBtn.addEventListener('click', handleSubmitProductForm);
-});
+const addProduct=async()=>{
+  const category=document.getElementById("productCategory").value;
+  const title=document.getElementById("productTitle").value;
+  const author=document.getElementById("productAuthor").value;
+  const date=document.getElementById("productDate").value;
+  const quantity=document.getElementById("productQuantity").value;
+  const price=document.getElementById("productPrice").value;
+  const image=document.getElementById("productImage").files[0];
+  const description=document.getElementById("productDescription").value;
 
-categoryFormSubmitBtns.forEach((submitBtn) => {
-  submitBtn.addEventListener('click', handleSubmitCategoryForm);
-});
+  try{
+    const form=new FormData();
+    form.append("categoryId",category);
+    form.append("title",title);
+    form.append("author",author);
+    form.append("date",date);
+    form.append("quantity",quantity);
+    form.append("price",price);
+    form.append("file",image);
+    form.append("des",description);
+    const res = await fetch("http://localhost:8080/addBook", {
+      method: "POST",
+      body: form,
+    });
 
-function handleSubmitProductForm(e) {
-  e.preventDefault();
-  Toast({
-    title: 'Thông tin',
-    message: 'Đây là những thông tin tới bạn.',
-    type: 'info',
-    duration: 3000,
-  });
-  Toast({
-    title: 'Lỗi',
-    message: 'Nạp lần đầu đi bạn ơi.',
-    type: 'error',
-    duration: 3000,
-  });
-}
-
-function handleSubmitCategoryForm(e) {
-  e.preventDefault();
-  Toast({
-    title: 'Thành công',
-    message: 'Đúng rồi. "Đầu tiên" là thứ quan trọng!',
-    type: 'success',
-    duration: 3000,
-  });
-  Toast({
-    title: 'Cảnh báo',
-    message: 'Đây là những thông tin tới bạn.',
-    type: 'warning',
-    duration: 3000,
-  });
+    if(res.status===200){
+      Toast({
+        title: 'Thành công',
+        message: 'Đã thêm sản phẩm ' +title,
+        type: 'success',
+        duration: 3000,
+      });
+    }
+    else {
+      const error=await res.json();
+      Toast({
+        title: 'Cảnh báo',
+        message: error.message,
+        type: 'warning',
+        duration: 3000,
+      });
+    }
+  }
+  catch (e){
+    Toast({
+      title: 'Cảnh báo',
+      message: 'Có lỗi xảy ra! Thử lại sau.',
+      type: 'warning',
+      duration: 3000,
+    });
+  }
 }

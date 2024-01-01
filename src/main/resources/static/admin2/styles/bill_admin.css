@@ -1,0 +1,67 @@
+/* Table data */
+.table-data form.date-filter-form {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--grey);
+}
+
+.table-data form.date-filter-form .form-label {
+  margin-right: 8px;
+}
+
+.table-data form.date-filter-form .form-group:last-of-type {
+  margin-right: 0;
+}
+
+.table-data form.date-filter-form .form-group {
+  align-items: center;
+  margin: 0 12px 0 0;
+}
+
+.table-data form.date-filter-form .form-group .form-input {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.table-data form.date-filter-form .form-group .btn.submit-btn {
+  border: none;
+  outline: none;
+  color: var(--dark);
+  background-color: transparent;
+}
+
+.table-data .order.table-container table tbody {
+  vertical-align: top;
+}
+
+.table-data .action-item a.success-color {
+  color: var(--success-color);
+}
+
+.table-data .action-item .action-item__icon {
+  margin-right: 4px;
+}
+
+#content .table-data table tbody tr td .action-list {
+  top: 0;
+}
+
+#content .table-data table hr {
+  margin: 0;
+}
+
+/* Bonmus */
+
+#content main .table-data .table-container table tr td .status.preparing {
+  background: var(--yellow);
+}
+
+#content main .table-data .table-container table tr td .status.shipping {
+  background: var(--green);
+}
+
+#content main .table-data .table-container table tr td .status.canceled {
+  background: var(--red);
+}

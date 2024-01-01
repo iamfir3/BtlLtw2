@@ -12,7 +12,25 @@ const handleGoLogin = () => {
     window.location.href = "http://localhost:8080/login";
 };
 const hadnleGoProfile=()=>{
-    window.location.href = "http://localhost:8080/profile";
+    window.location.href = "http://localhost:8080/profile?id="+localStorage.getItem("userId");
+}
+const hadnleGoChangePassword=()=>{
+    window.location.href = "http://localhost:8080/changePassword?id="+localStorage.getItem("userId");
+}
+const hadnleGoOrders=()=>{
+    window.location.href = "http://localhost:8080/userOrders?id="+localStorage.getItem("userId");
+}
+const hadnleGoList=()=>{
+    window.location.href = "http://localhost:8080/userLists?id="+localStorage.getItem("userId");
+}
+
+const hadnleGoVote=()=>{
+    window.location.href = "http://localhost:8080/voteBook?id="+localStorage.getItem("userId");
+}
+
+const hadnleGoLogOut=()=>{
+    localStorage.clear();
+    window.location.href="/";
 }
 
 const deleteCartItem=async (id)=>{
@@ -31,5 +49,9 @@ const handleImgClick=()=>{
 
 const handleCartClick=()=>{
     window.location.href="http://localhost:8080/cart?id="+localStorage.getItem("userId")
+}
+
+const handleProfileClick=()=>{
+    window.location.href="http://localhost:8080/profile?id="+localStorage.getItem("userId")
 }
 

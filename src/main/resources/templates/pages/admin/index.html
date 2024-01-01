@@ -49,14 +49,29 @@
             <div class="order table-container">
                 <div class="head">
                     <h3>Recent Orders</h3>
-                    <span class="head-icon">
-              <a href="#"><i class="bx bx-search"></i></a>
+                    <div style="display: flex;gap: 10px; align-items: center">
+                        <span class="head-icon">
+                            <div>
+                                <span style="margin-right: 10px;font-size: 16px">Bill status</span>
+                            <select style="    border: none;
+    padding: 10px 6px;
+    border-radius: 18px;
+font-size: 12px"
+                                    id="billStatusFilter">
+                                 <option disabled selected value="">SELECT BILL STATUS</option>
+                                <option value="COMPLETED">COMPLETED</option>
+                                <option value="PENDING">PENDING</option>
+                                <option value="PREPARING">PREPARING</option>
+                                <option value="SHIPPING">SHIPPING</option>
+                                <option value="CANCELED">CANCELED</option>
+                            </select>
+                            </div>
+
             </span>
-                    <span class="head-icon">
-              <a href="#"><i class="bx bx-filter"></i></a>
-            </span>
+                    </div>
+
                 </div>
-                <table>
+                <table id="billTable">
                     <thead>
                     <tr>
                         <th>Bill code</th>
@@ -122,6 +137,38 @@
         }
     }
     fetchStatistic().then();
+
+    function filterBills(selectedStatus) {
+        const table = document.getElementById("billTable");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            const statusCell = rows[i].cells[5];
+            const statusText = statusCell.innerText || statusCell.textContent;
+
+            if (selectedStatus === "" || statusText === selectedStatus) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+
+    document.getElementById("billStatusFilter").addEventListener("change", function () {
+        const selectedStatus = this.value;
+        clearFilters();
+        filterBills(selectedStatus);
+    });
+
+    // Function to clear previous filters
+    function clearFilters() {
+        const table = document.getElementById("billTable");
+        const rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            rows[i].style.display = "";
+        }
+    }
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
         integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="

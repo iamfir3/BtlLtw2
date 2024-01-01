@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{commonAdmin ::headAdmin}">
+
+</head>
+<body>
+  <!-- toast -->
+  <div id="toast"></div>
+  <!-- body -->
+  <section th:replace="~{commonAdmin ::adminSidebar(activeLi='product')}"></section>
+  <section id="content">
+    <nav th:replace="~{commonAdmin ::adminNav}"></nav>
+
+    <main>
+      <div class="head-title">
+        <div class="left">
+          <h1>Products</h1>
+          <ul class="breadcrumb">
+            <li>
+              <a href="#">Dashboard</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a href="#">Product</a>
+            </li>
+            <li><i class="bx bx-chevron-right"></i></li>
+            <li>
+              <a class="active" href="#" th:text="${scrum}"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <section id="form-manage">
+        <!-- Category Form -->
+        <form id="category-form" action="" method=" POST" class="">
+          <header class="category-form__header col-12">
+            <div class="head">
+              <h3>Add Category</h3>
+            </div>
+          </header>
+          <!-- <hr> -->
+          <div class="category-form__main mt-3">
+            <div class="form-group">
+              <label class="form-label col-lg-4 col-md-4" for="categoryName">Category
+                Name</label>
+              <div class="input-wrapper col-lg-8 col-md-8">
+                <input required class="form-input" type="text" name="categoryName" id="categoryName"
+                  placeholder="Enter your Category Name" value="" />
+                <span class="input-line"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn submit-btn" id="addCategoryBtn">
+              <span class="btn-icon"><i class="bx bx-plus"></i></span>
+              <a href="#" class="btn-label">Add Category</a>
+            </button>
+          </div>
+        </form>
+
+        <!-- Product Form -->
+        <form id="product-form" action="" method="POST" class="">
+          <header class="product-form__header col-12">
+            <div class="head">
+              <h3>Add Product</h3>
+            </div>
+          </header>
+          <!-- <hr> -->
+          <div class="product-form__main col-12 mt-3">
+            <div class="row">
+              <div class="form-group col-lg-6 col-md-12">
+                <label class="form-label col-lg-3 col-md-4" for="productCategory">Category Name</label>
+                <select class="form-select col-lg-9 col-md-8" name="productCategory" id="productCategory">
+                  <option disabled selected value="">---Select Category---</option>
+                  <option value="">Category 1</option>
+                  <option value="">Category 2</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-6 col-md-12">
+                <label class="form-label col-lg-3 col-md-4" for="productTitle">Title</label>
+                <div class="input-wrapper col-lg-9 col-md-8">
+                  <input required class="form-input" type="text" name="productTitle" id="productTitle"
+                    placeholder="Enter Product Title" value="" />
+                  <span class="input-line"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-lg-6 col-md-12">
+                <label class="form-label col-lg-3 col-md-4" for="productAuthor">Author</label>
+                <div class="input-wrapper col-lg-9 col-md-8">
+                  <input required class="form-input" type="text" name="productAuthor" id="productAuthor"
+                    placeholder="Enter Product Author" value="" />
+                  <span class="input-line"></span>
+                </div>
+              </div>
+              <div class="form-group col-lg-6 col-md-12">
+                <label class="form-label col-lg-3 col-md-4" for="productAuthor">Date</label>
+                <div class="input-wrapper col-lg-9 col-md-8">
+                  <input required class="form-input" type="date" name="productAuthor" id="productAuthor"
+                    placeholder="Enter Product Data" value="" />
+                  <span class="input-line"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col col-lg-12 row" style="padding-right: 0;">
+                <label class="form-label col-lg-12" for="productDescription">Description</label>
+                <div class="input-wrapper col-lg-12" style="padding-right: 0;">
+                  <textarea class="form-input" name="productDescription" id="productDescription" cols="30" rows="10"
+                    spellcheck="false"></textarea>
+                </div>
+                <span class="input-line"></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-12">
+                <div class="form-group row">
+                  <label class="form-label col-lg-3" for="productImage">
+                    <span>Image</span>
+                    <input required type="file" accept="image/*" name="productImage" id="productImage" value="" hidden>
+                  </label>
+                  <label class="form-label col-lg-9" for="productImage">
+                    <div class="productImgaeView">
+                      <span class="productImgaeView__icon"><i class='bx bx-image'></i></span>
+                      <span>Drop to upload Image</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <div class="row">
+                  <div class="form-group col-lg-12">
+                    <label class="form-label col-lg-3 col-md-4" for="productCount">Count</label>
+                    <div class="input-wrapper col-lg-9 col-md-8">
+                      <input required class="form-input" type="number" name="productCount" id="productCount"
+                        placeholder="Enter Product Count" value="" />
+                      <span class="input-line"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-lg-12">
+                    <label class="form-label col-lg-3 col-md-4" for="productQuantity">Quantity</label>
+                    <div class="input-wrapper col-lg-9 col-md-8">
+                      <input required class="form-input" type="number" name="productQuantity" id="productQuantity"
+                        placeholder="Enter Product Quantity" value="" />
+                      <span class="input-line"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-lg-12">
+                    <label class="form-label col-lg-3 col-md-4" for="productPrice">Price</label>
+                    <div class="input-wrapper col-lg-9 col-md-8">
+                      <input required class="form-input" type="number" name="productPrice" id="productPrice"
+                        placeholder="Enter Product Price" value="" />
+                      <span class="input-line"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group col-lg-12 mt-3">
+            <button class="btn back-btn">
+              <span class="btn-icon"><i class="bx bx-arrow-back"></i></span>
+              <a href="product_admin.html" class="btn-label">Back</a>
+            </button>
+            <button type="submit" class="btn submit-btn" id="addProductBtn">
+              <span class="btn-icon"><i class="bx bx-plus"></i></span>
+              <a href="#" class="btn-label">Add Product</a>
+            </button>
+            <button type="submit" class="btn submit-btn" id="saveProductBtn">
+              <span class="btn-icon"><i class="bx bx-check"></i></span>
+              <a href="#" class="btn-label">Save</a>
+            </button>
+          </div>
+        </form>
+
+      </section>
+
+    </main>
+  </section>
+  <script src="/admin/scripts/script.js"></script>
+  <script src="/admin/scripts/product_admin.js"></script>
+  <script type="module" src="/admin/scripts/product_form.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js"
+    integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+
+</html>
