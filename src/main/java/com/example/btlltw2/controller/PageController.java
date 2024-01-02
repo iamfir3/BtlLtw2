@@ -67,6 +67,13 @@ public class PageController {
         return "pages/list";
     }
 
+    @GetMapping("/search")
+    public String search(Model model,@RequestParam String keyword) {
+        List<Book> bookList = bookRepository.findByTitleContainingIgnoreCase(keyword);
+        model.addAttribute("books", bookList);
+        return "pages/search";
+    }
+
     @GetMapping("/cart")
     public String cart(Model model, @RequestParam("id") Long id) {
         Optional<CartEntity> cart = cartRepository.findByUserId(id);

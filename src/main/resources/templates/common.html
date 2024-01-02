@@ -33,20 +33,42 @@
             <a href="/admin" id="adminp" style="font-size: 20px">Go to admin</a>
             <div id="userHeaderIcon" class="flex items-center">
             </div>
-            <i class="fa-solid fa-magnifying-glass"></i>
-<!--            <i class="fa-regular fa-heart" id="favourite"></i>-->
+            <div style="    box-shadow: 3px 7px 22px 9px rgba(0,0,0,0.13);
+    -webkit-box-shadow: 3px 7px 29px 0px rgba(0,0,0,0.13);
+    -moz-box-shadow: 3px 7px 22px 9px rgba(0,0,0,0.13);
+    padding: 10px 18px;
+    border-radius: 27px;">
+                <input type="text" style="font-size: 16px" id="searchInput"  onkeydown="searchOnEnter(event)">
+                <i class="fa-solid fa-magnifying-glass" onclick="search()"></i>
+            </div>
+
+            <!--            <i class="fa-regular fa-heart" id="favourite"></i>-->
             <i class="fa-solid fa-cart-shopping" onclick="handleCartClick()" id="cart"></i>
+            <script>
+                function searchOnEnter(event) {
+                    if (event.key === "Enter") {
+                        search();
+                    }
+                }
+
+                function search() {
+
+                    var keyword = document.getElementById("searchInput").value;
+
+                    window.location.href = "http://localhost:8080/search?keyword=" + encodeURIComponent(keyword);
+                }
+            </script>
         </div>
     </div>
     <script>
-        const favourite = document.getElementById("favourite");
+
         const cart = document.getElementById("cart");
         const adminp = document.getElementById("adminp");
         if (localStorage.getItem("isLoggedIn") !== "true") {
-            favourite.style.display = 'none';
+
             cart.style.display = "none";
         } else {
-            favourite.style.display = 'inline-block';
+
             cart.style.display = "inline-block";
         }
         if (localStorage.getItem("position") === "admin") {
@@ -54,6 +76,7 @@
         } else {
             adminp.style.display = "none"
         }
+        console.log(localStorage.getItem("position") === "admin")
     </script>
 </div>
 
@@ -65,7 +88,8 @@
         <p class="text-[16px] font-[500] text-[#898989] truncate text-ellipsis" th:text="${book.des}">
 
         </p>
-        <p class="text-[20px] font-[600]"   th:text="${#numbers.formatDecimal(book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"></p>
+        <p class="text-[20px] font-[600]"
+           th:text="${#numbers.formatDecimal(book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"></p>
     </div>
 
     <div
@@ -78,16 +102,16 @@
             <p class="inline-block text-[16px] font-[600] cursor-pointer">View detail</p>
         </div>
 
-<!--        <div class="flex gap-[20px] text-white mt-[24px]  book_cart__2">-->
-<!--            <div class="flex gap-[6px] items-center text-[16px] font-[600] transition-all ease-in-out cursor-pointer">-->
-<!--                <i class="fa-solid fa-share-nodes"></i>-->
-<!--                <p>Share</p>-->
-<!--            </div>-->
-<!--            <div class="flex gap-[6px] items-center text-[16px] font-[600] cursor-pointer">-->
-<!--                <i class="fa-regular fa-heart"></i>-->
-<!--                <p>Heart</p>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--        <div class="flex gap-[20px] text-white mt-[24px]  book_cart__2">-->
+        <!--            <div class="flex gap-[6px] items-center text-[16px] font-[600] transition-all ease-in-out cursor-pointer">-->
+        <!--                <i class="fa-solid fa-share-nodes"></i>-->
+        <!--                <p>Share</p>-->
+        <!--            </div>-->
+        <!--            <div class="flex gap-[6px] items-center text-[16px] font-[600] cursor-pointer">-->
+        <!--                <i class="fa-regular fa-heart"></i>-->
+        <!--                <p>Heart</p>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
 
 </div>
@@ -104,7 +128,8 @@
     <div class="flex items-center w-full">
         <p class="text-[16px] w-[25%] font-[400]" th:text="${book.title}"></p>
 
-        <p class="text-[16px] w-[27%] font-[400]"  th:text="${#numbers.formatDecimal(book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"  >
+        <p class="text-[16px] w-[27%] font-[400]"
+           th:text="${#numbers.formatDecimal(book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'">
 
         </p>
 
@@ -114,7 +139,8 @@
             <p th:text="${book.amount}"></p>
         </div>
 
-        <p class="text-[16px] w-[30%] text-center" th:text="${#numbers.formatDecimal(book.amount * book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"  ></p>
+        <p class="text-[16px] w-[30%] text-center"
+           th:text="${#numbers.formatDecimal(book.amount * book.price,  0, 'COMMA', 0, 'POINT')} + ' VND'"></p>
 
         <div class="text-[#B88E2F] text-[20px] w-[10%]" th:attr="onclick=|deleteCartItem('${book.id}')|">
             <i class="fa-solid fa-trash"></i>
@@ -182,31 +208,35 @@
     >General
     </div>
     <div
-             th:class="${activeDiv=='change'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
+            th:class="${activeDiv=='change'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
             data-toggle="list"
             onclick="hadnleGoChangePassword()"
-    >Change password</div>
+    >Change password
+    </div>
     <div
-             th:class="${activeDiv=='order'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
+            th:class="${activeDiv=='order'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
             data-toggle="list"
             onclick="hadnleGoOrders()"
-    >Your orders</div>
-    <div
-             th:class="${activeDiv=='list'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
-            data-toggle="list"
-            onclick="hadnleGoList()"
-    >Your lists</div>
+    >Your orders
+    </div>
+    <!--    <div-->
+    <!--             th:class="${activeDiv=='list'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"-->
+    <!--            data-toggle="list"-->
+    <!--            onclick="hadnleGoList()"-->
+    <!--    >Your lists</div>-->
     <div
             th:class="${activeDiv=='vote'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
             data-toggle="list"
             onclick="hadnleGoVote()"
-    >Vote book</div>
+    >Vote book
+    </div>
 
     <div
             th:class="${activeDiv=='logout'?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}"
             data-toggle="list"
             onclick="hadnleGoLogOut()"
-    >Log out</div>
+    >Log out
+    </div>
 </div>
 
 

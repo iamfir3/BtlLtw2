@@ -563,7 +563,7 @@ body {
 }
 
 #content main .table-data .table-container table tr td .status.shipping {
-  background: var(--green);
+  background: var(--green) !important;
 }
 
 #content main .table-data .table-container table tr td .status.pending {
